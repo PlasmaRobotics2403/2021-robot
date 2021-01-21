@@ -135,7 +135,7 @@ public class Shooter {
     public void displayHoodPosition() {
         SmartDashboard.putNumber("hood position", hoodMotor.getSelectedSensorPosition());
     }
-    public int getHoodPosition() {
+    public double getHoodPosition() {
         return hoodMotor.getSelectedSensorPosition();
     }
 

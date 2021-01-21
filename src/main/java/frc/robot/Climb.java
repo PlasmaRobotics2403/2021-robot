@@ -52,7 +52,7 @@ public class Climb {
         climbLatch.set(false);
     }
 
-    public int getLeftEncoderValue(){
+    public double getLeftEncoderValue(){
         return leftClimbMotor.getSelectedSensorPosition();
     }
 
