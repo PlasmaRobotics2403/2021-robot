@@ -17,6 +17,7 @@ import frc.robot.auto.modes.ScaleAuton;
 import frc.robot.auto.modes.SixBallAuto;
 import frc.robot.auto.modes.TenBallAuto;
 import frc.robot.auto.modes.TrenchRun;
+import frc.robot.auto.modes.slalom;
 import frc.robot.auto.util.AutoMode;
 import frc.robot.auto.util.AutoModeRunner;
 import frc.robot.auto.util.GenerateTrajectory;
@@ -270,9 +271,10 @@ public class Robot extends TimedRobot {
     autoModes[3] = new SixBallAuto(driveTrain, turret, shooter, intake, table);
     autoModes[4] = new ScaleAuton(driveTrain, turret, shooter, intake, table);
     autoModes[5] = new TenBallAuto(driveTrain, turret, shooter, intake, table);
+    autoModes[6] = new slalom(driveTrain, turret, shooter, intake, table);
 
     table.getEntry("ledMode").setNumber(3);
-    turret.setTurretPosition(Constants.BACK_FACING);
+    //turret.setTurretPosition(Constants.BACK_FACING);
 
     autoModeRunner.chooseAutoMode(autoModes[autoModeSelection]);
     autoModeRunner.start();
@@ -300,7 +302,7 @@ public class Robot extends TimedRobot {
         turnVal = Math.min(turnVal, 0.2);
         turnVal = Math.max(-0.2, turnVal);
         turret.turn(turnVal);*/
-        turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle());
+        //turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle());
       }
       
 

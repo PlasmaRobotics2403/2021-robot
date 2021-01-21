@@ -59,6 +59,9 @@ public class followTrajectory implements Action {
 	TrajectoryConfig config10;
 	TrajectoryConfig config11;
 
+	Trajectory slalom0;
+	TrajectoryConfig slalomConfig0;
+
 	Trajectory[] trajectoryArray;
 	int trajectoryNumber;
 	
@@ -267,6 +270,33 @@ public class followTrajectory implements Action {
             config11
 		);
 		
+		slalomConfig0 = new TrajectoryConfig(5, .25)
+								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
+		slalom0 = TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)), //start
+            // Pass through these two interior waypoints, making an 's' curve path
+            List.of(
+                new Translation2d(1.3, 0.8), //D3 between cones
+                new Translation2d(2.5, 1.6),//After D3
+				new Translation2d(4.5, 1.6),//Before D9 Straight strech
+				new Translation2d(5.8, 0.8),//D9
+				new Translation2d(6.9, 0),//After D9
+				new Translation2d(7.3,0.4),//  Midpoint
+				new Translation2d(7.7,0.8),//D11
+				new Translation2d(7.3,1.25),//  Midpoint
+				new Translation2d(6.9, 1.7),//Before D9 the second time
+				new Translation2d(6.35, 1.25),//  Midpoint
+				new Translation2d(5.8, 0.8),//D9 the second time
+				new Translation2d(4.5, 0.2)//After D9 second time  Brings it in a little to avoid moving
+            ),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(3.2, 0, new Rotation2d(Math.toRadians(180))),
+            // Pass config
+            slalomConfig0
+		);
+		
 		trajectoryArray = new Trajectory[20];
 		trajectoryArray[0] = trajectory0;
 		trajectoryArray[1] = trajectory1;
@@ -280,6 +310,7 @@ public class followTrajectory implements Action {
 		trajectoryArray[9] = trajectory9;
 		trajectoryArray[10] = trajectory10;
 		trajectoryArray[11] = trajectory11;
+		trajectoryArray[12] = slalom0;
 		DriverStation.reportWarning("got Trajectory", false);
 	}
 
