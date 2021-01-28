@@ -13,8 +13,10 @@ import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.geometry.Twist2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.spline.PoseWithCurvature;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
@@ -64,6 +66,8 @@ public class followTrajectory implements Action {
 
 	Trajectory[] trajectoryArray;
 	int trajectoryNumber;
+
+	Pose2d test;
 	
 	int i = 0;
 	
@@ -71,6 +75,10 @@ public class followTrajectory implements Action {
 		this.trajectoryNumber = trajectoryNumber;
 		this.drive = drive;  
 		this.intake = intake; 
+
+		test = new Pose2d(6.7, 0, new Rotation2d(Math.toRadians(0)));
+		//test.exp(new Twist2d(0, 1.7, Math.toRadians(180)));
+
 		DriverStation.reportWarning("getting trajectory", false);
 		config0 = new TrajectoryConfig(2.5, 1.75)
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
@@ -269,30 +277,27 @@ public class followTrajectory implements Action {
             // Pass config
             config11
 		);
-		
-		slalomConfig0 = new TrajectoryConfig(5, .25)
+
+		slalomConfig0 = new TrajectoryConfig(2, .5)
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
 		slalom0 = TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)), //start
-            // Pass through these two interior waypoints, making an 's' curve path
-            List.of(
-                new Translation2d(1.3, 0.8), //D3 between cones
-                new Translation2d(2.5, 1.6),//After D3
-				new Translation2d(4.5, 1.6),//Before D9 Straight strech
-				new Translation2d(5.8, 0.8),//D9
-				new Translation2d(6.9, 0),//After D9
-				new Translation2d(7.3,0.4),//  Midpoint
-				new Translation2d(7.7,0.8),//D11
-				new Translation2d(7.3,1.25),//  Midpoint
-				new Translation2d(6.9, 1.7),//Before D9 the second time
-				new Translation2d(6.35, 1.25),//  Midpoint
-				new Translation2d(5.8, 0.8),//D9 the second time
-				new Translation2d(4.5, 0.2)//After D9 second time  Brings it in a little to avoid moving
+			List.of(
+				new Pose2d(0, 0, new Rotation2d(0)),
+                new Pose2d(1.3, 0.8, new Rotation2d(Math.toRadians(60))), //D3 between cones
+                new Pose2d(2.5, 1.6, new Rotation2d(0)),//After D3
+				new Pose2d(4.5, 1.6, new Rotation2d(0)),//Before D9 Straight strech
+				new Pose2d(5.8, 0.8, new Rotation2d(Math.toRadians(-60))),//D9
+				new Pose2d(6.7, 0, new Rotation2d(Math.toRadians(0))),//After D9
+				//new Pose2d().exp(new Twist2d(0,1.7, Math.toRadians(180)))
+				new Pose2d(7.5,0.8, new Rotation2d(Math.toRadians(90))),//D11
+				new Pose2d(6.4, 1.6, new Rotation2d(Math.toRadians(180))),//Before D9 the second time
+				new Pose2d(5.9, 1, new Rotation2d(Math.toRadians(200))),//D9 the second time
+				new Pose2d(5, 0, new Rotation2d(Math.toRadians(180))),//After D9 second time  Brings it in a little to avoid moving
+				new Pose2d(2.5, 0, new Rotation2d(Math.toRadians(180))),
+				new Pose2d(1.3, 0.8, new Rotation2d(Math.toRadians(120))),
+				new Pose2d(-0.1, 1.6, new Rotation2d(Math.toRadians(180)))
             ),
-            // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(3.2, 0, new Rotation2d(Math.toRadians(180))),
             // Pass config
             slalomConfig0
 		);
