@@ -281,8 +281,8 @@ public class followTrajectory implements Action {
                 new Translation2d(1.3, 0.8), //D3 between cones
                 new Translation2d(2.5, 1.6),//After D3
 				new Translation2d(4.5, 1.6),//Before D9 Straight strech
-				new Translation2d(5.8, 0.8),//D9
-				new Translation2d(6.9, 0),//After D9
+				new Translation2d(5.8, 0.8)//,//D9
+				/*new Translation2d(6.9, 0),//After D9
 				new Translation2d(7.3,0.4),//  Midpoint
 				new Translation2d(7.7,0.8),//D11
 				new Translation2d(7.3,1.25),//  Midpoint
@@ -290,9 +290,10 @@ public class followTrajectory implements Action {
 				new Translation2d(6.35, 1.25),//  Midpoint
 				new Translation2d(5.8, 0.8),//D9 the second time
 				new Translation2d(4.5, 0.2)//After D9 second time  Brings it in a little to avoid moving
+				*/
             ),
             // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(3.2, 0, new Rotation2d(Math.toRadians(180))),
+            new Pose2d(6.45, -0.2, new Rotation2d(Math.toRadians(0))), //3.2, 0, 180
             // Pass config
             slalomConfig0
 		);
