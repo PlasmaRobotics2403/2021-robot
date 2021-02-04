@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.robot.auto.modes.Bounce;
 import frc.robot.auto.modes.MoveFromLine;
 import frc.robot.auto.modes.Nothing;
 import frc.robot.auto.modes.ScaleAuton;
@@ -272,6 +273,7 @@ public class Robot extends TimedRobot {
     autoModes[4] = new ScaleAuton(driveTrain, turret, shooter, intake, table);
     autoModes[5] = new TenBallAuto(driveTrain, turret, shooter, intake, table);
     autoModes[6] = new slalom(driveTrain, turret, shooter, intake, table);
+    autoModes[7] = new Bounce(driveTrain, turret, shooter, intake, table);
 
     table.getEntry("ledMode").setNumber(3);
     //turret.setTurretPosition(Constants.BACK_FACING);

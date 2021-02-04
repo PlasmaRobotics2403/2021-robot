@@ -64,6 +64,15 @@ public class followTrajectory implements Action {
 	Trajectory slalom0;
 	TrajectoryConfig slalomConfig0;
 
+	Trajectory bounce0;
+	TrajectoryConfig bounceConfig0;
+	Trajectory bounce1;
+	TrajectoryConfig bounceConfig1;
+	Trajectory bounce2;
+	TrajectoryConfig bounceConfig2;
+	Trajectory bounce3;
+	TrajectoryConfig bounceConfig3;
+
 	Trajectory[] trajectoryArray;
 	int trajectoryNumber;
 
@@ -278,7 +287,7 @@ public class followTrajectory implements Action {
             config11
 		);
 
-		slalomConfig0 = new TrajectoryConfig(2, .5)
+		slalomConfig0 = new TrajectoryConfig(3.5, .75)// (3, 0.75)
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
 		slalom0 = TrajectoryGenerator.generateTrajectory(
@@ -288,18 +297,78 @@ public class followTrajectory implements Action {
                 new Pose2d(2.5, 1.6, new Rotation2d(0)),//After D3
 				new Pose2d(4.5, 1.6, new Rotation2d(0)),//Before D9 Straight strech
 				new Pose2d(5.8, 0.8, new Rotation2d(Math.toRadians(-60))),//D9
-				new Pose2d(6.7, 0, new Rotation2d(Math.toRadians(0))),//After D9
+				new Pose2d(6.7, -0.1, new Rotation2d(Math.toRadians(0))),//After D9
 				//new Pose2d().exp(new Twist2d(0,1.7, Math.toRadians(180)))
 				new Pose2d(7.5,0.8, new Rotation2d(Math.toRadians(90))),//D11
-				new Pose2d(6.4, 1.6, new Rotation2d(Math.toRadians(180))),//Before D9 the second time
-				new Pose2d(5.9, 1, new Rotation2d(Math.toRadians(200))),//D9 the second time
-				new Pose2d(5, 0, new Rotation2d(Math.toRadians(180))),//After D9 second time  Brings it in a little to avoid moving
+				new Pose2d(6.7, 1.6, new Rotation2d(Math.toRadians(180))),//Before D9 the second time
+				new Pose2d(5.8, 0.8, new Rotation2d(Math.toRadians(240))),//D9 the second time
+				new Pose2d(4.5, 0, new Rotation2d(Math.toRadians(180))),//After D9 second time  Brings it in a little to avoid moving
 				new Pose2d(2.5, 0, new Rotation2d(Math.toRadians(180))),
 				new Pose2d(1.3, 0.8, new Rotation2d(Math.toRadians(120))),
-				new Pose2d(-0.1, 1.6, new Rotation2d(Math.toRadians(180)))
+				new Pose2d(-0.3, 2.0, new Rotation2d(Math.toRadians(180))) //120
             ),
             // Pass config
             slalomConfig0
+		);
+
+		bounceConfig0 = new TrajectoryConfig(2, 1)
+								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
+		bounce0 = TrajectoryGenerator.generateTrajectory(
+			List.of(
+				new Pose2d(0, 0, new Rotation2d(0)),
+				new Pose2d(1.3, 1.1, new Rotation2d(Math.toRadians(90)))
+				
+            ),
+            // Pass config
+            bounceConfig0
+		);
+
+		bounceConfig1 = new TrajectoryConfig(2, 1)
+								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
+								.setReversed(true);
+		bounce1 = TrajectoryGenerator.generateTrajectory(
+			List.of(
+				new Pose2d(0, 0, new Rotation2d(0)),
+				new Pose2d(-1.5, -0.7, new Rotation2d(Math.toRadians(30))),
+				new Pose2d(-2.5, -1.4, new Rotation2d(Math.toRadians(90))),
+				new Pose2d(-1.5, -2.2, new Rotation2d(Math.toRadians(180))),
+				new Pose2d(0.3, -2.2, new Rotation2d(Math.toRadians(180)))
+				
+            ),
+            // Pass config
+            bounceConfig1
+		);
+
+		bounceConfig2 = new TrajectoryConfig(2, 1)
+								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
+		bounce2 = TrajectoryGenerator.generateTrajectory(
+			List.of(
+				new Pose2d(0, 0, new Rotation2d(0)),
+				new Pose2d(1.8, 0, new Rotation2d(Math.toRadians(0))),
+				new Pose2d(2.5, 1.1, new Rotation2d(Math.toRadians(90))),
+				new Pose2d(1.8, 2.3, new Rotation2d(Math.toRadians(180))),
+				new Pose2d(-0.2, 2.3, new Rotation2d(Math.toRadians(180)))
+				
+            ),
+            // Pass config
+            bounceConfig2
+		);
+
+		bounceConfig3 = new TrajectoryConfig(2, 1)
+								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
+								.setReversed(true);
+		bounce3 = TrajectoryGenerator.generateTrajectory(
+			List.of(
+				new Pose2d(0, 0, new Rotation2d(0)),
+				new Pose2d(-0.9, -1.6, new Rotation2d(Math.toRadians(90)))
+				
+            ),
+            // Pass config
+            bounceConfig3
 		);
 		
 		trajectoryArray = new Trajectory[20];
@@ -316,6 +385,10 @@ public class followTrajectory implements Action {
 		trajectoryArray[10] = trajectory10;
 		trajectoryArray[11] = trajectory11;
 		trajectoryArray[12] = slalom0;
+		trajectoryArray[13] = bounce0;
+		trajectoryArray[14] = bounce1;
+		trajectoryArray[15] = bounce2;
+		trajectoryArray[16] = bounce3;
 		DriverStation.reportWarning("got Trajectory", false);
 	}
 
