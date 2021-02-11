@@ -18,6 +18,7 @@ import frc.robot.auto.modes.ScaleAuton;
 import frc.robot.auto.modes.SixBallAuto;
 import frc.robot.auto.modes.TenBallAuto;
 import frc.robot.auto.modes.TrenchRun;
+import frc.robot.auto.modes.barrel;
 import frc.robot.auto.modes.slalom;
 import frc.robot.auto.util.AutoMode;
 import frc.robot.auto.util.AutoModeRunner;
@@ -141,7 +142,7 @@ public class Robot extends TimedRobot {
     turretTargetAngle = 0.0;
 
     autoModeRunner = new AutoModeRunner();
-    autoModes = new AutoMode[10];
+    autoModes = new AutoMode[20];
     for(int i = 0; i < 10; i++){
       autoModes[i] = new Nothing();
     }
@@ -274,6 +275,7 @@ public class Robot extends TimedRobot {
     autoModes[5] = new TenBallAuto(driveTrain, turret, shooter, intake, table);
     autoModes[6] = new slalom(driveTrain, turret, shooter, intake, table);
     autoModes[7] = new Bounce(driveTrain, turret, shooter, intake, table);
+    autoModes[8] = new barrel(driveTrain, intake);
 
     table.getEntry("ledMode").setNumber(3);
     //turret.setTurretPosition(Constants.BACK_FACING);
