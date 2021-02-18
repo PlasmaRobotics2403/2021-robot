@@ -76,6 +76,12 @@ public class followTrajectory implements Action {
 	Trajectory barrel;
 	TrajectoryConfig barrelConfig;
 
+	Trajectory galaxySearch1;
+	Trajectory galaxySearch2;
+	Trajectory galaxySearch3;
+	Trajectory galaxySearch4;
+	TrajectoryConfig galaxySearchConfig;
+
 	Trajectory[] trajectoryArray;
 	int trajectoryNumber;
 
@@ -397,6 +403,22 @@ public class followTrajectory implements Action {
             // Pass config
             barrelConfig
 		);
+
+		galaxySearchConfig = new TrajectoryConfig(2.5, 0.75)
+								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
+		galaxySearch1 = TrajectoryGenerator.generateTrajectory(
+			List.of(
+				new Pose2d(0, 0, new Rotation2d(0)),
+				new Pose2d(2.5, -0.8, new Rotation2d(Math.toRadians(-40))),
+				new Pose2d(4.1, -0.8, new Rotation2d(Math.toRadians(80))),
+				new Pose2d(3.5, 1.9, new Rotation2d(Math.toRadians(45))),
+				new Pose2d(7.1, 3.8, new Rotation2d(Math.toRadians(35)))
+				
+            ),
+            // Pass config
+            galaxySearchConfig
+		);
 		
 		trajectoryArray = new Trajectory[25];
 		trajectoryArray[0] = trajectory0;
@@ -417,6 +439,7 @@ public class followTrajectory implements Action {
 		trajectoryArray[15] = bounce2;
 		trajectoryArray[16] = bounce3;
 		trajectoryArray[17] = barrel;
+		trajectoryArray[18] = galaxySearch1;
 		DriverStation.reportWarning("got Trajectory", false);
 	}
 

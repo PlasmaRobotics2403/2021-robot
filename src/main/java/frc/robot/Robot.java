@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.modes.Bounce;
+import frc.robot.auto.modes.GalaxySearch;
 import frc.robot.auto.modes.MoveFromLine;
 import frc.robot.auto.modes.Nothing;
 import frc.robot.auto.modes.ScaleAuton;
@@ -156,6 +157,8 @@ public class Robot extends TimedRobot {
 
     intake.retractForeBar();
     driveTrain.setToCoast();
+
+    SmartDashboard.putNumber("Galaxy Search Path", 0.0);
   }
 
   
@@ -276,6 +279,7 @@ public class Robot extends TimedRobot {
     autoModes[6] = new slalom(driveTrain, turret, shooter, intake, table);
     autoModes[7] = new Bounce(driveTrain, turret, shooter, intake, table);
     autoModes[8] = new barrel(driveTrain, intake);
+    autoModes[9] = new GalaxySearch(driveTrain, intake, table);
 
     table.getEntry("ledMode").setNumber(3);
     //turret.setTurretPosition(Constants.BACK_FACING);
