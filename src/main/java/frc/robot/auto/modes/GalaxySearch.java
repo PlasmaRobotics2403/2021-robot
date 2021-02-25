@@ -56,13 +56,14 @@ public class GalaxySearch extends AutoMode {
 	protected void routine() throws AutoModeEndedException {
 		DriverStation.reportWarning("started Action", false);
         runAction(new determinePathGS(table));
-        runAction(new extendIntake(intake, true));
+        //runAction(new extendIntake(intake, true));
+        runAction(new IntakeRoller(intake, true));
 
         if(SmartDashboard.getNumber("Galaxy Search Path", 0.0) == 1.0){
             runAction(new followTrajectory(18, driveTrain, intake));
         }
         else if(SmartDashboard.getNumber("Galaxy Search Path", 0.0) == 2.0){
-            
+            runAction(new followTrajectory(19, driveTrain, intake));
         }
         else if(SmartDashboard.getNumber("Galaxy Search Path", 0.0) == 3.0){
             
@@ -74,7 +75,8 @@ public class GalaxySearch extends AutoMode {
             DriverStation.reportWarning("No Path Detected", false);
         }
         
-        runAction(new extendIntake(intake, false));
+        runAction(new IntakeRoller(intake, false));
+        //runAction(new extendIntake(intake, false));
 		DriverStation.reportWarning("Finished Action", false);
 	}
 

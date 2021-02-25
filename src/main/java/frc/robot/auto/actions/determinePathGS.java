@@ -37,7 +37,7 @@ public class determinePathGS implements Action{
 
     @Override
     public void start() {
-        table.getEntry("pipeline").setNumber(0);
+        table.getEntry("pipeline").setNumber(2);
         table.getEntry("ledMode").setNumber(1);
         if(vision_X > 13.0 && vision_X < 19.0 && vision_Y < -13.0){
             SmartDashboard.putNumber("Galaxy Search Path", 1.0);

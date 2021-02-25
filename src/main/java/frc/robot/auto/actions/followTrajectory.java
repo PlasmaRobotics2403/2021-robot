@@ -419,6 +419,19 @@ public class followTrajectory implements Action {
             // Pass config
             galaxySearchConfig
 		);
+
+		galaxySearch2 = TrajectoryGenerator.generateTrajectory(
+			List.of(
+				new Pose2d(0, 0, new Rotation2d(0)),
+				new Pose2d(1.6, 0.1, new Rotation2d(Math.toRadians(10))),
+				new Pose2d(3.8, -0.5, new Rotation2d(Math.toRadians(-10))),
+				new Pose2d(4.2, 1.5, new Rotation2d(Math.toRadians(50))),
+				new Pose2d(7.5, 4.1, new Rotation2d(Math.toRadians(35)))
+				
+            ),
+            // Pass config
+            galaxySearchConfig
+		);
 		
 		trajectoryArray = new Trajectory[25];
 		trajectoryArray[0] = trajectory0;
@@ -440,6 +453,7 @@ public class followTrajectory implements Action {
 		trajectoryArray[16] = bounce3;
 		trajectoryArray[17] = barrel;
 		trajectoryArray[18] = galaxySearch1;
+		trajectoryArray[19] = galaxySearch2;
 		DriverStation.reportWarning("got Trajectory", false);
 	}
 
