@@ -93,20 +93,25 @@ public class Shoot implements Action{
             startShooting = true;
         }
         
-        if(startShooting == true && shooter.getHoodPosition() >= shooter.getTargetHoodPosition() * 0.95 && vision_X > -0.4 && vision_X < 0.4) {
-            if(timeCollected == false){
-                startTime = Timer.getFPGATimestamp();
-                timeCollected = true;
+        try {
+            if(startShooting == true && shooter.getHoodPosition() >= shooter.getTargetHoodPosition() * 0.95 && turret.getTurretPositionError() > -100 && turret.getTurretPositionError() < 100) {
+                if(timeCollected == false){
+                    startTime = Timer.getFPGATimestamp();
+                    timeCollected = true;
+                }
+                shooter.feedBalls(Constants.MAX_BALL_FEED_SPEED);
+                intake.indexBall(Constants.MAX_INDEX_SPEED);
+                intake.intakeBall(Constants.MAX_INTAKE_SPEED);
+
             }
-            shooter.feedBalls(Constants.MAX_BALL_FEED_SPEED);
-            intake.indexBall(Constants.MAX_INDEX_SPEED);
-            intake.intakeBall(Constants.MAX_INTAKE_SPEED);
-            
+            else {
+                shooter.feedBalls(0);
+                intake.indexBall(0);
+                intake.intakeBall(0);
+            }
         }
-        else {
-            shooter.feedBalls(0);
-            intake.indexBall(0);
-            intake.intakeBall(0);
+        catch(Exception e) {
+
         }
     }
 

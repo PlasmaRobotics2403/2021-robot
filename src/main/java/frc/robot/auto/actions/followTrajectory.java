@@ -98,7 +98,7 @@ public class followTrajectory implements Action {
 		//test.exp(new Twist2d(0, 1.7, Math.toRadians(180)));
 
 		DriverStation.reportWarning("getting trajectory", false);
-		config0 = new TrajectoryConfig(2.5, 1.75)
+		config0 = new TrajectoryConfig(1.5, 1.5)
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
 		trajectory0 = TrajectoryGenerator.generateTrajectory(
@@ -262,7 +262,7 @@ public class followTrajectory implements Action {
             config9
 		);
 
-		config10 = new TrajectoryConfig(1.5, 1.5)
+		config10 = new TrajectoryConfig(1.0, 1.5)
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
 								

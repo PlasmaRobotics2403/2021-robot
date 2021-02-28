@@ -135,6 +135,10 @@ public class Turret {
         return turretRotationMotor.getSelectedSensorPosition();
     }
 
+    public int getTurretPositionError() {
+        return turretRotationMotor.getClosedLoopError();
+    }
+
     public boolean displayMaxLimit(){
         return maxLimit.get();
     }

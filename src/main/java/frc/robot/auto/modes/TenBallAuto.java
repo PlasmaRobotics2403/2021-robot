@@ -6,6 +6,7 @@ import frc.robot.auto.actions.Shoot;
 import frc.robot.auto.actions.SpinUp;
 import frc.robot.auto.actions.Straight;
 import frc.robot.auto.actions.Tracking;
+import frc.robot.auto.actions.Wait;
 import frc.robot.auto.actions.followTrajectory;
 import frc.robot.auto.actions.gyroAngle;
 import frc.robot.auto.util.AutoMode;
@@ -48,19 +49,33 @@ public class TenBallAuto extends AutoMode {
 	@Override
 	protected void routine() throws AutoModeEndedException {
         DriverStation.reportWarning("started Action", false);
-        runAction(new Tracking(turret, false, 100));
-        runAction(new SpinUp(shooter, 18000));
-        runAction(new IntakeRoller(intake, true));
-        runAction(new followTrajectory(8, driveTrain, intake));
-        runAction(new Tracking(turret, true, 0));
-		runAction(new Shoot(turret, shooter, intake, table, 4, 18000));
-		runAction(new Tracking(turret, false, 160));
-		runAction(new followTrajectory(9, driveTrain, intake));
-		runAction(new followTrajectory(10, driveTrain, intake));
-		runAction(new IntakeRoller(intake, false));
+		runActionsParallel(new Tracking(turret, false, 100), new SpinUp(shooter, 16000));
+		runActionsParallel(new IntakeRoller(intake, true), new followTrajectory(8, driveTrain, intake));
 		runAction(new Tracking(turret, true, 0));
+		runAction(new Shoot(turret, shooter, intake, table, 4, 16000));
+		runActionsParallel(new Tracking(turret, false, 160), new followTrajectory(9, driveTrain, intake));
+		runAction(new followTrajectory(10, driveTrain, intake));
+		runAction(new Wait(.05));
+		//runActionsParallel(new IntakeRoller(intake, false), new Tracking(turret, true, 0));
+		runAction(new Tracking(turret, true, 0));
+		//runActionsParallel((new followTrajectory(11, driveTrain, intake), new Shoot(turret, shooter, intake, table, 4, 16000));
 		runAction(new followTrajectory(11, driveTrain, intake));
-		runAction(new Shoot(turret, shooter, intake, table, 4, 18000));
+		runActionsParallel(new IntakeRoller(intake, false), new Shoot(turret, shooter, intake, table, 4, 16000));
+
+
+		//runAction(new Tracking(turret, false, 100));
+        //runAction(new SpinUp(shooter, 16000));
+        //runAction(new IntakeRoller(intake, true));
+        //runAction(new followTrajectory(8, driveTrain, intake));
+        //runAction(new Tracking(turret, true, 0));
+		//runAction(new Shoot(turret, shooter, intake, table, 4, 16000));
+		//runAction(new Tracking(turret, false, 160));
+		//runAction(new followTrajectory(9, driveTrain, intake));
+		//runAction(new followTrajectory(10, driveTrain, intake));
+		//runAction(new IntakeRoller(intake, false));
+		//runAction(new Tracking(turret, true, 0));
+		//runAction(new followTrajectory(11, driveTrain, intake));
+		//runAction(new Shoot(turret, shooter, intake, table, 4, 16000));
 		
 		
 		DriverStation.reportWarning("Finished Action", false);

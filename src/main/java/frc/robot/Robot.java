@@ -224,6 +224,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("climb encoder value", climb.getLeftEncoderValue());
     SmartDashboard.putNumber("climb position", climbPosition);
 
+    SmartDashboard.putNumber("turret Angle", turret.getTurretAngle());
+
     driveTrain.updateOdometry();
   }
 
@@ -310,7 +312,7 @@ public class Robot extends TimedRobot {
         turnVal = Math.min(turnVal, 0.2);
         turnVal = Math.max(-0.2, turnVal);
         turret.turn(turnVal);*/
-        //turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle());
+        turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle());
       }
       
 
@@ -508,7 +510,7 @@ public class Robot extends TimedRobot {
 
   public void visionTargetPosition() {
     if (vision_Area != 0) {
-      turretTargetAngle = vision_X + turret.getTurretAngle() + driveTrain.getGyroAngle();
+      turretTargetAngle = vision_X + turret.getTurretAngle()/1.03 + driveTrain.getGyroAngle();
     }
   }
 
