@@ -280,8 +280,8 @@ public class Robot extends TimedRobot {
     autoModes[5] = new TenBallAuto(driveTrain, turret, shooter, intake, table);
     autoModes[6] = new slalom(driveTrain, turret, shooter, intake, table);
     autoModes[7] = new Bounce(driveTrain, turret, shooter, intake, table);
-    autoModes[8] = new barrel(driveTrain, intake);
-    autoModes[9] = new GalaxySearch(driveTrain, intake, table);
+    autoModes[8] = new barrel(driveTrain, intake, turret);
+    autoModes[9] = new GalaxySearch(driveTrain, intake, table, turret);
 
     table.getEntry("ledMode").setNumber(3);
     //turret.setTurretPosition(Constants.BACK_FACING);

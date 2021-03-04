@@ -49,9 +49,9 @@ public class ScaleAuton extends AutoMode {
 	@Override
 	protected void routine() throws AutoModeEndedException {
 		DriverStation.reportWarning("started Action", false);
-		runAction(new Tracking(turret, false, 180));
+		runAction(new Tracking(turret, false, 160));
 		runAction(new Tracking(turret, true, 180));
-		runAction(new Shoot(turret, shooter, intake, table, 1, 15000));
+		runAction(new Shoot(turret, shooter, intake, table, 0.9, 15000));
 		runAction(new IntakeRoller(intake, true));
 		//runAction(new SpinUp(shooter, 18000));
 		runAction(new followTrajectory(4, driveTrain, intake));
@@ -62,6 +62,7 @@ public class ScaleAuton extends AutoMode {
 		runAction(new IntakeRoller(intake, true));
 		runAction(new SpinUp(shooter, 18000));
 		runAction(new followTrajectory(7, driveTrain, intake));
+		runAction(new IntakeRoller(intake, false));
 		runAction(new Tracking(turret, true, 0));
 		runAction(new Shoot(turret, shooter, intake, table, 4, 18000));
 		

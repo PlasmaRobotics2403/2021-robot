@@ -5,6 +5,7 @@ import frc.robot.auto.actions.SetTurretPosition;
 import frc.robot.auto.actions.Shoot;
 import frc.robot.auto.actions.SpinUp;
 import frc.robot.auto.actions.Straight;
+import frc.robot.auto.actions.Tracking;
 import frc.robot.auto.actions.followTrajectory;
 import frc.robot.auto.actions.gyroAngle;
 import frc.robot.auto.util.AutoMode;
@@ -47,13 +48,17 @@ public class TrenchRun extends AutoMode {
 	@Override
 	protected void routine() throws AutoModeEndedException {
 		DriverStation.reportWarning("started Action", false);
+		runAction(new Tracking(turret, false, 160));
+		runAction(new Tracking(turret, true, 180));
 		runAction(new Shoot(turret, shooter, intake, table, 1, 15000));
+		runAction(new Tracking(turret, false, 160));
 		runAction(new IntakeRoller(intake, true));
 		runAction(new SpinUp(shooter, 18000));
 		runAction(new followTrajectory(1, driveTrain, intake));
 		
 		runAction(new followTrajectory(2, driveTrain, intake));
 		runAction(new IntakeRoller(intake, false));
+		runAction(new Tracking(turret, true, 180));
 		runAction(new Shoot(turret, shooter, intake, table, 3, 18000));
 		//
 		

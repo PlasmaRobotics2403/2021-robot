@@ -5,6 +5,7 @@ import frc.robot.auto.actions.SetTurretPosition;
 import frc.robot.auto.actions.Shoot;
 import frc.robot.auto.actions.SpinUp;
 import frc.robot.auto.actions.Straight;
+import frc.robot.auto.actions.Tracking;
 import frc.robot.auto.actions.determinePathGS;
 import frc.robot.auto.actions.extendIntake;
 import frc.robot.auto.actions.followTrajectory;
@@ -31,12 +32,14 @@ import frc.robot.Turret;
 public class GalaxySearch extends AutoMode {
 	Drive driveTrain;
 	Intake intake;
-	NetworkTable table;
+    NetworkTable table;
+    Turret turret;
 
-    public GalaxySearch(Drive driveTrain, Intake intake, NetworkTable table) {
+    public GalaxySearch(Drive driveTrain, Intake intake, NetworkTable table, Turret turret) {
 		this.driveTrain = driveTrain;
 		this.intake = intake;
-		this.table = table;
+        this.table = table;
+        this.turret = turret;
     }
 	/*
 	 * (non-Javadoc)
@@ -54,11 +57,13 @@ public class GalaxySearch extends AutoMode {
 
 	@Override
 	protected void routine() throws AutoModeEndedException {
-		DriverStation.reportWarning("started Action", false);
+        DriverStation.reportWarning("started Action", false);
+        runAction(new Tracking(turret, false, 80));
         runAction(new determinePathGS(table));
         //runAction(new extendIntake(intake, true));
         runAction(new IntakeRoller(intake, true));
 
+        /*
         if(SmartDashboard.getNumber("Galaxy Search Path", 0.0) == 1.0){
             runAction(new followTrajectory(18, driveTrain, intake));
         }
@@ -66,7 +71,7 @@ public class GalaxySearch extends AutoMode {
             runAction(new followTrajectory(19, driveTrain, intake));
         }
         else if(SmartDashboard.getNumber("Galaxy Search Path", 0.0) == 3.0){
-            
+            runAction(new followTrajectory(20, driveTrain, intake));
         }
         else if(SmartDashboard.getNumber("Galaxy Search Path", 0.0) == 4.0){
             
@@ -74,6 +79,9 @@ public class GalaxySearch extends AutoMode {
         else {
             DriverStation.reportWarning("No Path Detected", false);
         }
+        */
+
+        runAction(new followTrajectory(20, driveTrain, intake));
         
         runAction(new IntakeRoller(intake, false));
         //runAction(new extendIntake(intake, false));

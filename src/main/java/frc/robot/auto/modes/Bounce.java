@@ -5,11 +5,15 @@ import frc.robot.auto.actions.SetTurretPosition;
 import frc.robot.auto.actions.Shoot;
 import frc.robot.auto.actions.SpinUp;
 import frc.robot.auto.actions.Straight;
+import frc.robot.auto.actions.Tracking;
 import frc.robot.auto.actions.extendIntake;
 import frc.robot.auto.actions.followTrajectory;
 import frc.robot.auto.actions.gyroAngle;
 import frc.robot.auto.util.AutoMode;
 import frc.robot.auto.util.AutoModeEndedException;
+
+import javax.sound.midi.Track;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.Constants;
@@ -47,7 +51,8 @@ public class Bounce extends AutoMode {
 	 */
 	@Override
 	protected void routine() throws AutoModeEndedException {
-        DriverStation.reportWarning("started Action", false);
+		DriverStation.reportWarning("started Action", false);
+		runAction(new Tracking(turret, false, 80));
         runActionsParallel(new followTrajectory(13, driveTrain, intake), new extendIntake(intake, true));
         runAction(new followTrajectory(14, driveTrain, intake));
         runAction(new followTrajectory(15, driveTrain, intake));

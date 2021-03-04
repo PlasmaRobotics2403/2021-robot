@@ -272,7 +272,8 @@ public class Drive extends SubsystemBase {
     }
 
     public void currentLimit(final TalonFX talon) {
-      talon.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 30,0));
+      //talon.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 30,0));
+      talon.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 50, 51,0));
     }
     
     public void leftWheelDrive(final double speed) {

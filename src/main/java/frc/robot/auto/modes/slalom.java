@@ -5,6 +5,7 @@ import frc.robot.auto.actions.SetTurretPosition;
 import frc.robot.auto.actions.Shoot;
 import frc.robot.auto.actions.SpinUp;
 import frc.robot.auto.actions.Straight;
+import frc.robot.auto.actions.Tracking;
 import frc.robot.auto.actions.followTrajectory;
 import frc.robot.auto.actions.gyroAngle;
 import frc.robot.auto.util.AutoMode;
@@ -47,6 +48,7 @@ public class slalom extends AutoMode {
 	@Override
 	protected void routine() throws AutoModeEndedException {
 		DriverStation.reportWarning("started Action", false);
+		runAction(new Tracking(turret, false, 80));
 		runAction(new followTrajectory(12, driveTrain, intake));
 		
 		DriverStation.reportWarning("Finished Action", false);
