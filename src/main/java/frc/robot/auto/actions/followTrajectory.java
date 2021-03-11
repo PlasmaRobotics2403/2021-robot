@@ -296,7 +296,7 @@ public class followTrajectory implements Action {
             config11
 		);
 
-		slalomConfig0 = new TrajectoryConfig(3.5, .8)// (3.5, 0.75) good values --try in coast mode
+		slalomConfig0 = new TrajectoryConfig(2.5, .5)// (3.5, 0.75) good values --try in coast mode
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
 		slalom0 = TrajectoryGenerator.generateTrajectory(
@@ -308,11 +308,11 @@ public class followTrajectory implements Action {
 				new Pose2d(5.8, 0.8, new Rotation2d(Math.toRadians(-60))),//D9
 				new Pose2d(6.7, -0.1, new Rotation2d(Math.toRadians(0))),//After D9
 				//new Pose2d().exp(new Twist2d(0,1.7, Math.toRadians(180)))
-				new Pose2d(7.5,0.8, new Rotation2d(Math.toRadians(90))),//D11
+				new Pose2d(7.6,0.8, new Rotation2d(Math.toRadians(90))),//D11
 				new Pose2d(6.7, 1.6, new Rotation2d(Math.toRadians(180))),//Before D9 the second time
 				new Pose2d(5.8, 0.8, new Rotation2d(Math.toRadians(240))),//D9 the second time
-				new Pose2d(4.5, -0.3, new Rotation2d(Math.toRadians(180))),//After D9 second time  Brings it in a little to avoid moving
-				new Pose2d(2.6, -0.3, new Rotation2d(Math.toRadians(180))),
+				new Pose2d(4.5, -0.0, new Rotation2d(Math.toRadians(180))),//After D9 second time  Brings it in a little to avoid moving
+				new Pose2d(2.6, -0.0, new Rotation2d(Math.toRadians(180))),
 				new Pose2d(1.3, 0.8, new Rotation2d(Math.toRadians(120))),
 				new Pose2d(-0.6, 2.0, new Rotation2d(Math.toRadians(180))) //120
             ),
@@ -445,6 +445,17 @@ public class followTrajectory implements Action {
             // Pass config
             galaxySearchConfig
 		);
+
+		galaxySearch4 = TrajectoryGenerator.generateTrajectory(
+			List.of(
+				new Pose2d(0, 0, new Rotation2d(0)),
+				new Pose2d(4.6, 0.0, new Rotation2d(Math.toRadians(70))),
+				new Pose2d(4.6, 2.1, new Rotation2d(Math.toRadians(20))),
+				new Pose2d(8.2, 1.4, new Rotation2d(Math.toRadians(0))) //8.8
+            ),
+            // Pass config
+            galaxySearchConfig
+		);
 		
 		trajectoryArray = new Trajectory[25];
 		trajectoryArray[0] = trajectory0;
@@ -468,6 +479,7 @@ public class followTrajectory implements Action {
 		trajectoryArray[18] = galaxySearch1;
 		trajectoryArray[19] = galaxySearch2;
 		trajectoryArray[20] = galaxySearch3;
+		trajectoryArray[21] = galaxySearch4;
 		DriverStation.reportWarning("got Trajectory", false);
 	}
 
