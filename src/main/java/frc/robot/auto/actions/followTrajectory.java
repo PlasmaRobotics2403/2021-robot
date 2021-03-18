@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj.spline.PoseWithCurvature;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.trajectory.constraint.CentripetalAccelerationConstraint;
+import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveKinematicsConstraint;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
@@ -296,9 +298,10 @@ public class followTrajectory implements Action {
             config11
 		);
 
-		slalomConfig0 = new TrajectoryConfig(2.5, .5)// (3.5, 0.75) good values --try in coast mode
+		slalomConfig0 = new TrajectoryConfig(10.0, 1.5)// (3.5, 0.75) good values --try in coast mode
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
-								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
+								.addConstraint(new CentripetalAccelerationConstraint(4.35));
 		slalom0 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
@@ -314,7 +317,7 @@ public class followTrajectory implements Action {
 				new Pose2d(4.5, -0.0, new Rotation2d(Math.toRadians(180))),//After D9 second time  Brings it in a little to avoid moving
 				new Pose2d(2.6, -0.0, new Rotation2d(Math.toRadians(180))),
 				new Pose2d(1.3, 0.8, new Rotation2d(Math.toRadians(120))),
-				new Pose2d(-0.6, 2.0, new Rotation2d(Math.toRadians(180))) //120
+				new Pose2d(-0.2, 2.0, new Rotation2d(Math.toRadians(180))) //120
             ),
             // Pass config
             slalomConfig0
@@ -380,9 +383,10 @@ public class followTrajectory implements Action {
             bounceConfig3
 		);
 
-		barrelConfig = new TrajectoryConfig(2.75, 1) // -- loves coast mode
+		barrelConfig = new TrajectoryConfig(10.0, 2.6) // -- loves coast mode
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
-								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
+								.addConstraint(new CentripetalAccelerationConstraint(4.0));
 		barrel = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
@@ -395,10 +399,10 @@ public class followTrajectory implements Action {
 				new Pose2d(5.9, 0.8, new Rotation2d(Math.toRadians(-270))),
 				new Pose2d(5.1, 1.6, new Rotation2d(Math.toRadians(-180))),
 				new Pose2d(4.2, 0.8, new Rotation2d(Math.toRadians(-90))),
-				new Pose2d(6.7, -1.4, new Rotation2d(Math.toRadians(0))),
+				new Pose2d(6.7, -1.5, new Rotation2d(Math.toRadians(0))), 
 				new Pose2d(7.4, -0.7, new Rotation2d(Math.toRadians(90))),
-				new Pose2d(6.7, 0.2, new Rotation2d(Math.toRadians(180))),
-				new Pose2d(0, 0.4, new Rotation2d(Math.toRadians(180)))
+				new Pose2d(6.7, 0.4, new Rotation2d(Math.toRadians(180))),
+				new Pose2d(0, 0.8, new Rotation2d(Math.toRadians(180)))
             ),
             // Pass config
             barrelConfig
@@ -438,7 +442,7 @@ public class followTrajectory implements Action {
 				new Pose2d(0, 0, new Rotation2d(0)),
 				new Pose2d(3, -1.0, new Rotation2d(Math.toRadians(-10))),
 				new Pose2d(4.9, -0.45, new Rotation2d(Math.toRadians(87))),
-				new Pose2d(5.0, 2.2, new Rotation2d(Math.toRadians(20))), //4.8, 2.0
+				new Pose2d(5.0, 2.2, new Rotation2d(Math.toRadians(20))), 
 				new Pose2d(6.2, 2.0, new Rotation2d(Math.toRadians(0))),
 				new Pose2d(8.5, 2.0, new Rotation2d(Math.toRadians(0)))			
             ),
@@ -451,7 +455,7 @@ public class followTrajectory implements Action {
 				new Pose2d(0, 0, new Rotation2d(0)),
 				new Pose2d(4.6, 0.0, new Rotation2d(Math.toRadians(70))),
 				new Pose2d(4.6, 2.1, new Rotation2d(Math.toRadians(20))),
-				new Pose2d(8.2, 1.4, new Rotation2d(Math.toRadians(0))) //8.8
+				new Pose2d(8.2, 1.4, new Rotation2d(Math.toRadians(0))) 
             ),
             // Pass config
             galaxySearchConfig
