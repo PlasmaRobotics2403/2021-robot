@@ -84,6 +84,11 @@ public class followTrajectory implements Action {
 	Trajectory galaxySearch4;
 	TrajectoryConfig galaxySearchConfig;
 
+	Trajectory teleop1;
+	Trajectory teleop2;
+	TrajectoryConfig teleopConfig1;
+	TrajectoryConfig teleopConfig2;
+
 	Trajectory[] trajectoryArray;
 	int trajectoryNumber;
 
@@ -460,6 +465,31 @@ public class followTrajectory implements Action {
             // Pass config
             galaxySearchConfig
 		);
+
+		teleopConfig1 = new TrajectoryConfig(2.5, 0.75)
+								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
+		teleop1 = TrajectoryGenerator.generateTrajectory(
+			List.of(
+				new Pose2d(0, 0, new Rotation2d(0)),
+				new Pose2d(2.5, 0, new Rotation2d(Math.toRadians(0)))			
+            ),
+            // Pass config
+            teleopConfig1
+		);
+
+		teleopConfig2 = new TrajectoryConfig(2.5, 0.75)
+								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
+								.setReversed(true);
+		teleop2 = TrajectoryGenerator.generateTrajectory(
+			List.of(
+				new Pose2d(0, 0, new Rotation2d(0)),
+				new Pose2d(-2.5, 0, new Rotation2d(Math.toRadians(0)))
+            ),
+            // Pass config
+            teleopConfig2
+		);
 		
 		trajectoryArray = new Trajectory[25];
 		trajectoryArray[0] = trajectory0;
@@ -484,6 +514,8 @@ public class followTrajectory implements Action {
 		trajectoryArray[19] = galaxySearch2;
 		trajectoryArray[20] = galaxySearch3;
 		trajectoryArray[21] = galaxySearch4;
+		trajectoryArray[22] = teleop1;
+		trajectoryArray[23] = teleop2;
 		DriverStation.reportWarning("got Trajectory", false);
 	}
 

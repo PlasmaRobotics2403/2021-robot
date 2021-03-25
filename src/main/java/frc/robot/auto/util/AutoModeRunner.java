@@ -69,4 +69,11 @@ public class AutoModeRunner {
 		autoThread = null;
 	}
 
+
+	// Returns if the automode thread is still alive
+
+	public Boolean isAlive() {
+		return autoThread.isAlive();
+	}
+
 }

@@ -20,6 +20,7 @@ import frc.robot.auto.modes.SixBallAuto;
 import frc.robot.auto.modes.TenBallAuto;
 import frc.robot.auto.modes.TrenchRun;
 import frc.robot.auto.modes.barrel;
+import frc.robot.auto.modes.driverAssist;
 import frc.robot.auto.modes.slalom;
 import frc.robot.auto.util.AutoMode;
 import frc.robot.auto.util.AutoModeRunner;
@@ -159,6 +160,7 @@ public class Robot extends TimedRobot {
     driveTrain.setToCoast();
 
     SmartDashboard.putNumber("Galaxy Search Path", 0.0);
+    SmartDashboard.putBoolean("Driver Assist Running", false);
   }
 
   
@@ -518,15 +520,59 @@ public class Robot extends TimedRobot {
    * This function is called periodically during test mode.
    */
   @Override
-  public void testPeriodic() {
-    /*if(joystick.B.isPressed()) {
-        shooter.shootRight(1);
-    }
-    else if(joystick.X.isPressed()) {
-        shooter.shootLeft(1);
-    }
-    else {
-      shooter.stop();
-    }*/
+  public void testInit() {
+    /*driveTrain.resetEncoders();
+    driveTrain.zeroGyro();
+    driveTrain.setToBrake();
+    setDriveToCoast = false;*/
+
+    //autoModeRunner.chooseAutoMode(new driverAssist(driveTrain, turret, shooter, intake, table));
+
+    teleopInit();
   }
+
+  @Override
+  public void testPeriodic() {
+    if(SmartDashboard.getBoolean("Driver Assist Running", false) == false){
+      if(joystick.Y.isPressed()){
+        SmartDashboard.putBoolean("Driver Assist Running", true);
+        
+        // Init Auton
+        driveTrain.resetEncoders();
+        driveTrain.zeroGyro();
+        driveTrain.setToBrake();
+        setDriveToCoast = false;
+
+        table.getEntry("ledMode").setNumber(3);
+
+        // Select an Auton Mode
+        autoModeRunner.chooseAutoMode(new driverAssist(driveTrain, turret, shooter, intake, table));
+
+        // Run Auton
+        autoModeRunner.start();
+    
+        // teleop
+        // This has to run after auto mode is complete
+        // teleopInit();
+      }
+      else{
+        teleopPeriodic();
+        //driver has to run intake
+      }
+    } 
+    else{
+      // check it auton thread is alive
+      // if it is run auton periodic
+      // otherwise run teleopInit
+      if(autoModeRunner.isAlive() == true){
+        autonomousPeriodic();
+      }
+      else{
+        teleopInit();
+        SmartDashboard.putBoolean("Driver Assist Running", false);
+      }
+    }
+  }
+
+
 }
