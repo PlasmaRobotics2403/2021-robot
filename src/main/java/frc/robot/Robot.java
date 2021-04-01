@@ -551,9 +551,6 @@ public class Robot extends TimedRobot {
         // Run Auton
         autoModeRunner.start();
     
-        // teleop
-        // This has to run after auto mode is complete
-        // teleopInit();
       }
       else{
         teleopPeriodic();

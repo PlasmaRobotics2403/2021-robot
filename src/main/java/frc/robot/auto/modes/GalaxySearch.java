@@ -63,21 +63,23 @@ public class GalaxySearch extends AutoMode {
         //runAction(new extendIntake(intake, true));
         runAction(new IntakeRoller(intake, true));
 
-        if(SmartDashboard.getNumber("Galaxy Search Path", 0.0) == 1.0){
-            runAction(new followTrajectory(18, driveTrain, intake));
-        }
-        else if(SmartDashboard.getNumber("Galaxy Search Path", 0.0) == 2.0){
-            runAction(new followTrajectory(19, driveTrain, intake));
-        }
-        else if(SmartDashboard.getNumber("Galaxy Search Path", 0.0) == 3.0){
-            runAction(new followTrajectory(20, driveTrain, intake));
-        }
-        else if(SmartDashboard.getNumber("Galaxy Search Path", 0.0) == 4.0){
-            runAction(new followTrajectory(21, driveTrain, intake));
-        }
-        else {
-            DriverStation.reportWarning("No Path Detected", false);
-        }
+        runAction(new followTrajectory(20, driveTrain, intake));
+
+        // if(SmartDashboard.getNumber("Galaxy Search Path", 0.0) == 1.0){
+        //     runAction(new followTrajectory(18, driveTrain, intake));
+        // }
+        // else if(SmartDashboard.getNumber("Galaxy Search Path", 0.0) == 2.0){
+        //     runAction(new followTrajectory(19, driveTrain, intake));
+        // }
+        // else if(SmartDashboard.getNumber("Galaxy Search Path", 0.0) == 3.0){
+        //     runAction(new followTrajectory(20, driveTrain, intake));
+        // }
+        // else if(SmartDashboard.getNumber("Galaxy Search Path", 0.0) == 4.0){
+        //     runAction(new followTrajectory(21, driveTrain, intake));
+        // }
+        // else {
+        //     DriverStation.reportWarning("No Path Detected", false);
+        // }
         
         
         runAction(new IntakeRoller(intake, false));

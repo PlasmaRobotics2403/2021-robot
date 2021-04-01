@@ -83,6 +83,9 @@ public class followTrajectory implements Action {
 	Trajectory galaxySearch3;
 	Trajectory galaxySearch4;
 	TrajectoryConfig galaxySearchConfig;
+	TrajectoryConfig galaxySearchConfig2;
+	TrajectoryConfig galaxySearchConfig3;
+	TrajectoryConfig galaxySearchConfig4;
 
 	Trajectory teleop1;
 	Trajectory teleop2;
@@ -303,10 +306,10 @@ public class followTrajectory implements Action {
             config11
 		);
 
-		slalomConfig0 = new TrajectoryConfig(10.0, 1.5)// (3.5, 0.75) good values --try in coast mode
+		slalomConfig0 = new TrajectoryConfig(7.0, 0.8)// (3.5, 0.75) good values --try in coast mode
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
-								.addConstraint(new CentripetalAccelerationConstraint(4.35));
+								.addConstraint(new CentripetalAccelerationConstraint(4.45)); //4.4
 		slalom0 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
@@ -317,20 +320,21 @@ public class followTrajectory implements Action {
 				new Pose2d(6.7, -0.1, new Rotation2d(Math.toRadians(0))),//After D9
 				//new Pose2d().exp(new Twist2d(0,1.7, Math.toRadians(180)))
 				new Pose2d(7.6,0.8, new Rotation2d(Math.toRadians(90))),//D11
-				new Pose2d(6.7, 1.6, new Rotation2d(Math.toRadians(180))),//Before D9 the second time
-				new Pose2d(5.8, 0.8, new Rotation2d(Math.toRadians(240))),//D9 the second time
+				new Pose2d(6.7, 1.5, new Rotation2d(Math.toRadians(180))),//Before D9 the second time //1.6
+				new Pose2d(5.9, 0.8, new Rotation2d(Math.toRadians(240))),//D9 the second time //5.8
 				new Pose2d(4.5, -0.0, new Rotation2d(Math.toRadians(180))),//After D9 second time  Brings it in a little to avoid moving
 				new Pose2d(2.6, -0.0, new Rotation2d(Math.toRadians(180))),
 				new Pose2d(1.3, 0.8, new Rotation2d(Math.toRadians(120))),
-				new Pose2d(-0.2, 2.0, new Rotation2d(Math.toRadians(180))) //120
+				new Pose2d(-0.2, 1.6, new Rotation2d(Math.toRadians(180))) //120
             ),
             // Pass config
             slalomConfig0
 		);
 
-		bounceConfig0 = new TrajectoryConfig(2.5, 1.5)
+		bounceConfig0 = new TrajectoryConfig(10, 1.75) //2.5, 1.5
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
-								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
+								.addConstraint(new CentripetalAccelerationConstraint(4.3));
 		bounce0 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
@@ -341,43 +345,46 @@ public class followTrajectory implements Action {
             bounceConfig0
 		);
 
-		bounceConfig1 = new TrajectoryConfig(2.25, 1.25)
+		bounceConfig1 = new TrajectoryConfig(10, 1.25) //2.25, 1.25
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
-								.setReversed(true);
+								.setReversed(true)
+								.addConstraint(new CentripetalAccelerationConstraint(2.5)); //3
 		bounce1 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
 				new Pose2d(-1.5, -0.6, new Rotation2d(Math.toRadians(30))),
-				new Pose2d(-2.7, -1.4, new Rotation2d(Math.toRadians(90))),
+				new Pose2d(-2.7, -1.0, new Rotation2d(Math.toRadians(90))), //-1.4
 				new Pose2d(-1.5, -2.3, new Rotation2d(Math.toRadians(180))),
-				new Pose2d(0.3, -2.3, new Rotation2d(Math.toRadians(180)))
+				new Pose2d(0.0, -2.3, new Rotation2d(Math.toRadians(180))) //0.1
 				
             ),
             // Pass config
             bounceConfig1
 		);
 
-		bounceConfig2 = new TrajectoryConfig(2.25, 1.25)
+		bounceConfig2 = new TrajectoryConfig(10, 1.5) //2.25, 1.25
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
-								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
+								.addConstraint(new CentripetalAccelerationConstraint(4.3));
 		bounce2 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
 				new Pose2d(1.8, 0, new Rotation2d(Math.toRadians(0))),
-				new Pose2d(2.5, 1, new Rotation2d(Math.toRadians(90))),
-				new Pose2d(1.8, 2.3, new Rotation2d(Math.toRadians(180))),
-				new Pose2d(-0.2, 2.3, new Rotation2d(Math.toRadians(180)))
+				new Pose2d(2.6, 1, new Rotation2d(Math.toRadians(90))), //2.5
+				new Pose2d(1.9, 2.3, new Rotation2d(Math.toRadians(180))), //1.8
+				new Pose2d(-0.1, 2.5, new Rotation2d(Math.toRadians(180))) //-0.2, 2.3
 				
             ),
             // Pass config
             bounceConfig2
 		);
 
-		bounceConfig3 = new TrajectoryConfig(2.5, 1.5)
+		bounceConfig3 = new TrajectoryConfig(10, 1.75) //2.5, 1.5
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
-								.setReversed(true);
+								.setReversed(true)
+								.addConstraint(new CentripetalAccelerationConstraint(4.3));
 		bounce3 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
@@ -391,7 +398,7 @@ public class followTrajectory implements Action {
 		barrelConfig = new TrajectoryConfig(10.0, 2.6) // -- loves coast mode
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
-								.addConstraint(new CentripetalAccelerationConstraint(4.0));
+								.addConstraint(new CentripetalAccelerationConstraint(4.3));
 		barrel = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
@@ -407,21 +414,22 @@ public class followTrajectory implements Action {
 				new Pose2d(6.7, -1.5, new Rotation2d(Math.toRadians(0))), 
 				new Pose2d(7.4, -0.7, new Rotation2d(Math.toRadians(90))),
 				new Pose2d(6.7, 0.4, new Rotation2d(Math.toRadians(180))),
-				new Pose2d(0, 0.8, new Rotation2d(Math.toRadians(180)))
+				new Pose2d(0, 0.7, new Rotation2d(Math.toRadians(180)))
             ),
             // Pass config
             barrelConfig
 		);
 
-		galaxySearchConfig = new TrajectoryConfig(2.5, 0.75)
+		galaxySearchConfig = new TrajectoryConfig(7, 2.5) //2.5, 2
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
-								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
+								.addConstraint(new CentripetalAccelerationConstraint(4.3));
 		galaxySearch1 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
 				new Pose2d(2.5, -0.8, new Rotation2d(Math.toRadians(-40))),
 				new Pose2d(4.1, -0.8, new Rotation2d(Math.toRadians(80))),
-				new Pose2d(3.5, 1.9, new Rotation2d(Math.toRadians(45))),
+				new Pose2d(3.5, 2.1, new Rotation2d(Math.toRadians(45))), //1.9
 				new Pose2d(7.1, 3.8, new Rotation2d(Math.toRadians(35)))
 				
             ),
@@ -429,6 +437,10 @@ public class followTrajectory implements Action {
             galaxySearchConfig
 		);
 
+		galaxySearchConfig2 = new TrajectoryConfig(2.5, 0.75) //2.5, 0.75
+								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
+								.addConstraint(new CentripetalAccelerationConstraint(4.3));
 		galaxySearch2 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
@@ -439,22 +451,30 @@ public class followTrajectory implements Action {
 				
             ),
             // Pass config
-            galaxySearchConfig
+            galaxySearchConfig2
 		);
 
+		galaxySearchConfig3 = new TrajectoryConfig(7, 0.75) //2.5, 0.75
+								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
+								.addConstraint(new CentripetalAccelerationConstraint(3.8));
 		galaxySearch3 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
 				new Pose2d(3, -1.0, new Rotation2d(Math.toRadians(-10))),
-				new Pose2d(4.9, -0.45, new Rotation2d(Math.toRadians(87))),
+				new Pose2d(4.9, -0.45, new Rotation2d(Math.toRadians(87))), //4.9
 				new Pose2d(5.0, 2.2, new Rotation2d(Math.toRadians(20))), 
 				new Pose2d(6.2, 2.0, new Rotation2d(Math.toRadians(0))),
 				new Pose2d(8.5, 2.0, new Rotation2d(Math.toRadians(0)))			
             ),
             // Pass config
-            galaxySearchConfig
+            galaxySearchConfig3
 		);
 
+		galaxySearchConfig4 = new TrajectoryConfig(2.5, 0.75) //2.5, 0.75
+								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
+								.addConstraint(new CentripetalAccelerationConstraint(4.3));
 		galaxySearch4 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
@@ -463,7 +483,7 @@ public class followTrajectory implements Action {
 				new Pose2d(8.2, 1.4, new Rotation2d(Math.toRadians(0))) 
             ),
             // Pass config
-            galaxySearchConfig
+            galaxySearchConfig4
 		);
 
 		teleopConfig1 = new TrajectoryConfig(2.5, 0.75)
