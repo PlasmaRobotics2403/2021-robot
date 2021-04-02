@@ -63,7 +63,7 @@ public class GalaxySearch extends AutoMode {
         //runAction(new extendIntake(intake, true));
         runAction(new IntakeRoller(intake, true));
 
-        runAction(new followTrajectory(20, driveTrain, intake));
+        runAction(new followTrajectory(21, driveTrain, intake));
 
         // if(SmartDashboard.getNumber("Galaxy Search Path", 0.0) == 1.0){
         //     runAction(new followTrajectory(18, driveTrain, intake));
