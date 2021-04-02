@@ -140,17 +140,6 @@ public class Drive extends SubsystemBase {
       feedForward = new SimpleMotorFeedforward(.24, 1.83, .36);
 
     }
-
-    public void FPSDrive(final PlasmaAxis forwardAxis, final PlasmaAxis turnAxis) {
-
-      //double forwardVal = forwardAxis.getFilteredAxis() * Math.abs(forwardAxis.getFilteredAxis());
-      //double turnVal = turnAxis.getFilteredAxis() * Math.abs(turnAxis.getFilteredAxis()) * Math.abs(turnAxis.getFilteredAxis());
-  
-      final double forwardVal = forwardAxis.getFilteredAxis() * Math.abs(forwardAxis.getFilteredAxis()) * Math.abs(forwardAxis.getFilteredAxis());
-      final double turnVal = turnAxis.getFilteredAxis() * Math.abs(turnAxis.getFilteredAxis()) * Math.abs(turnAxis.getFilteredAxis());
-
-      FPSDrive(forwardVal, turnVal);
-    }
     
     public void resetEncoders() {
       // double dist = Math.abs(getDistance());
@@ -219,9 +208,19 @@ public class Drive extends SubsystemBase {
       navX.setAngleAdjustment(angle);
     }
   
+    public void FPSDrive(final PlasmaAxis forwardAxis, final PlasmaAxis turnAxis) {
+
+      double forwardVal = forwardAxis.getFilteredAxis() * Math.abs(forwardAxis.getFilteredAxis());
+      double turnVal = turnAxis.getFilteredAxis() * Math.abs(turnAxis.getFilteredAxis()) * Math.abs(turnAxis.getFilteredAxis());
+  
+      //double forwardVal = forwardAxis.getFilteredAxis() * Math.abs(forwardAxis.getFilteredAxis()) * Math.abs(forwardAxis.getFilteredAxis());
+      //double turnVal = turnAxis.getFilteredAxis() * Math.abs(turnAxis.getFilteredAxis()) * Math.abs(turnAxis.getFilteredAxis());
+
+      FPSDrive(forwardVal, turnVal);
+    }
 
     public void FPSDrive(final double forwardVal, double turnVal) {
-  
+
       turnVal *= Constants.MAX_DRIVE_TURN;
   
       final double absForward = Math.abs(forwardVal);
@@ -367,6 +366,10 @@ public class Drive extends SubsystemBase {
     diffDrive.feed();
     SmartDashboard.putNumber("left volts", leftVolts);
     SmartDashboard.putNumber("right volts", rightVolts);
+  }
+
+  public void driveRobot(double forwardVal, double turnVal) {
+    diffDrive.arcadeDrive(forwardVal, turnVal);
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds(){

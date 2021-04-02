@@ -4,7 +4,7 @@ public class JoystickConstants {
 
 	/* AXIS CONSTANTS */
 	
-	public static final double deadBand = 0.15;
+	public static final double deadBand = 0.25;
 	
 	/* TRIGGER CONSTANTS */
 	

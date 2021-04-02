@@ -348,6 +348,7 @@ public class Robot extends TimedRobot {
 
   public void driverControls(final PlasmaJoystick joystick) {
     driveTrain.FPSDrive(joystick.LeftY, joystick.RightX);
+    //driveTrain.driveRobot(joystick.LeftY.getFilteredAxis(), joystick.RightX.getFilteredAxis());
     //visionTurretLineUp();
 
     if(joystick.LB.isPressed()){
