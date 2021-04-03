@@ -49,7 +49,7 @@ public class Shoot implements Action{
 
         this.rpm = rpm;
 
-        startTime = 200.0;
+        startTime = 1200.0;
         this.startShooting = false;
     }
 

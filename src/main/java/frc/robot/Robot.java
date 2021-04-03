@@ -79,6 +79,7 @@ public class Robot extends TimedRobot {
   boolean ballCounted;
 
   double turretTargetAngle;
+  double turretOffSetAngle;
 
   boolean setDriveToCoast;
 
@@ -142,6 +143,7 @@ public class Robot extends TimedRobot {
     ballCounted = false;
 
     turretTargetAngle = 0.0;
+    turretOffSetAngle = 0.0;
 
     autoModeRunner = new AutoModeRunner();
     autoModes = new AutoMode[20];
@@ -273,6 +275,7 @@ public class Robot extends TimedRobot {
     driveTrain.zeroGyro();
     driveTrain.setToBrake();
     setDriveToCoast = false;
+    turretOffSetAngle = 0.0;
 
     autoModes[0] = new Nothing();
     autoModes[1] = new MoveFromLine(driveTrain, turret, shooter, intake, table);
@@ -314,7 +317,7 @@ public class Robot extends TimedRobot {
         turnVal = Math.min(turnVal, 0.2);
         turnVal = Math.max(-0.2, turnVal);
         turret.turn(turnVal);*/
-        turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle());
+        turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle() + turretOffSetAngle);
       }
       
 
@@ -530,6 +533,9 @@ public class Robot extends TimedRobot {
     //autoModeRunner.chooseAutoMode(new driverAssist(driveTrain, turret, shooter, intake, table));
 
     teleopInit();
+    turretTargetAngle = 180.0;
+    turretOffSetAngle = 5.0;
+    //intake.extendForeBar();
   }
 
   @Override
@@ -555,7 +561,7 @@ public class Robot extends TimedRobot {
       }
       else{
         teleopPeriodic();
-        //driver has to run intake
+        //driver has to run intake (Right Bumper)
       }
     } 
     else{

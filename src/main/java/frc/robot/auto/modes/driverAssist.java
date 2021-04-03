@@ -51,16 +51,13 @@ public class driverAssist extends AutoMode {
 	@Override
 	protected void routine() throws AutoModeEndedException {
         DriverStation.reportWarning("started Action", false);
-		//runAction(new driverAssistRunning(true));
 		
-        runAction(new IntakeRoller(intake, false));
-        runActionsParallel(new followTrajectory(22, driveTrain, intake), new Tracking(turret, true, 180));
-        runAction(new Shoot(turret, shooter, intake, table, 2, 18000));
-        runActionsParallel(new followTrajectory(23, driveTrain, intake), new extendIntake(intake, true));
-		runAction(new IntakeRoller(intake, true));
-		
+		runAction(new Tracking(turret, false, 180));
+		runAction(new Tracking(turret, true, 180));
+        runActionsParallel(new followTrajectory(23, driveTrain, intake), new SpinUp(shooter, 15000));
+        runAction(new Shoot(turret, shooter, intake, table, 1.0, 15000));
+        runAction(new followTrajectory(22, driveTrain, intake));
 
-        //runAction(new driverAssistRunning(false));
 		DriverStation.reportWarning("Finished Action", false);
 	}
 

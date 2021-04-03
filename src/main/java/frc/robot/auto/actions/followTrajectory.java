@@ -429,15 +429,15 @@ public class followTrajectory implements Action {
 				new Pose2d(0, 0, new Rotation2d(0)),
 				new Pose2d(2.5, -0.8, new Rotation2d(Math.toRadians(-40))),
 				new Pose2d(4.1, -0.8, new Rotation2d(Math.toRadians(80))),
-				new Pose2d(3.5, 2.1, new Rotation2d(Math.toRadians(45))), //1.9
-				new Pose2d(7.1, 3.8, new Rotation2d(Math.toRadians(35)))
+				new Pose2d(3.4, 2.3, new Rotation2d(Math.toRadians(45))),
+				new Pose2d(7.5, 4.1, new Rotation2d(Math.toRadians(35))) //7.1, 3.8
 				
             ),
             // Pass config
             galaxySearchConfig
 		);
 
-		galaxySearchConfig2 = new TrajectoryConfig(7, 1.5) //5, 1.5
+		galaxySearchConfig2 = new TrajectoryConfig(7, 2) //5, 1.5
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
 								.addConstraint(new CentripetalAccelerationConstraint(4.3));
@@ -486,26 +486,26 @@ public class followTrajectory implements Action {
             galaxySearchConfig4
 		);
 
-		teleopConfig1 = new TrajectoryConfig(2.5, 0.75)
+		teleopConfig1 = new TrajectoryConfig(7, 2.5) 
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
 		teleop1 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
-				new Pose2d(2.5, 0, new Rotation2d(Math.toRadians(0)))			
+				new Pose2d(3.8, 0, new Rotation2d(Math.toRadians(0)))			
             ),
             // Pass config
             teleopConfig1
 		);
 
-		teleopConfig2 = new TrajectoryConfig(2.5, 0.75)
+		teleopConfig2 = new TrajectoryConfig(7, 2.5)
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
 								.setReversed(true);
 		teleop2 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
-				new Pose2d(-2.5, 0, new Rotation2d(Math.toRadians(0)))
+				new Pose2d(-3.8, 0, new Rotation2d(Math.toRadians(0)))
             ),
             // Pass config
             teleopConfig2
