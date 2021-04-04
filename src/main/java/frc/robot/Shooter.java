@@ -55,6 +55,18 @@ public class Shooter {
 		hoodMotor.config_kD(0, 200, 30); // (second) ~ 10 x kP
         hoodMotor.config_IntegralZone(0, 0, 30);
 
+        //leftFlyWheelMotor.config_kF(0, 0.667, 30); //feed forward speed
+        //leftFlyWheelMotor.config_kP(0, 0, 30); // used to get close to position
+		//leftFlyWheelMotor.config_kI(0, 0, 30); // start with 0.001
+		//leftFlyWheelMotor.config_kD(0, 0, 30); // (second) ~ 10 x kP
+        //leftFlyWheelMotor.config_IntegralZone(0, 0, 30);
+
+        //rightFlyWheelMotor.config_kF(0, 0.667, 30); //feed forward speed
+        //rightFlyWheelMotor.config_kP(0, 0, 30); // used to get close to position
+		//rightFlyWheelMotor.config_kI(0, 0, 30); // start with 0.001
+		//rightFlyWheelMotor.config_kD(0, 0, 30); // (second) ~ 10 x kP
+        //rightFlyWheelMotor.config_IntegralZone(0, 0, 30);
+
         frontRollerMotor.setInverted(false);
         //backRollerMotor.setInverted(false);
 
@@ -126,6 +138,10 @@ public class Shooter {
     }
     public void hoodHidden() {
         hoodMotor.set(ControlMode.Position, 0);
+    }
+
+    public void setHoodPosition(double position) {
+        hoodMotor.set(ControlMode.Position, position);
     }
 
     public double getTargetHoodPosition(){

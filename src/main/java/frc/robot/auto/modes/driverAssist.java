@@ -10,6 +10,7 @@ import frc.robot.auto.actions.Wait;
 import frc.robot.auto.actions.driverAssistRunning;
 import frc.robot.auto.actions.extendIntake;
 import frc.robot.auto.actions.followTrajectory;
+import frc.robot.auto.actions.setHoodPosition;
 import frc.robot.auto.util.AutoMode;
 import frc.robot.auto.util.AutoModeEndedException;
 import edu.wpi.first.networktables.NetworkTable;
@@ -53,10 +54,12 @@ public class driverAssist extends AutoMode {
         DriverStation.reportWarning("started Action", false);
 		
 		runAction(new Tracking(turret, false, 180));
-		runAction(new Tracking(turret, true, 180));
-        runActionsParallel(new followTrajectory(23, driveTrain, intake), new SpinUp(shooter, 15000));
-        runAction(new Shoot(turret, shooter, intake, table, 1.0, 15000));
-        runAction(new followTrajectory(22, driveTrain, intake));
+		runActionsParallel(new Tracking(turret, true, 180), new SpinUp(shooter, 13000));
+        runAction(new followTrajectory(23, driveTrain, intake));
+		runAction(new Shoot(turret, shooter, intake, table, 2.0, 13000));
+		runAction(new followTrajectory(22, driveTrain, intake));
+		
+
 
 		DriverStation.reportWarning("Finished Action", false);
 	}

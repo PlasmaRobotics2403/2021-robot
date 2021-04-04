@@ -540,6 +540,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
+    compressor.start();
+
     if(SmartDashboard.getBoolean("Driver Assist Running", false) == false){
       if(joystick.Y.isPressed()){
         SmartDashboard.putBoolean("Driver Assist Running", true);

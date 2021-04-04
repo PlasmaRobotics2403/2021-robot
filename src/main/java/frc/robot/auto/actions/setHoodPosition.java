@@ -1,18 +1,16 @@
 package frc.robot.auto.actions;
 
 import frc.robot.auto.util.Action;
-import frc.robot.Constants;
-import frc.robot.Intake;
 import frc.robot.Shooter;
 import edu.wpi.first.wpilibj.DriverStation;
 
-public class SpinUp implements Action{
+public class setHoodPosition implements Action {
     Shooter shooter;
-    double speed;
+    double position;
 
-    public SpinUp(Shooter shooter, double speed){
+    public setHoodPosition(Shooter shooter, double hoodPosition) {
         this.shooter = shooter;
-        this.speed = speed;
+        position = hoodPosition;
     }
 
     @Override
@@ -22,7 +20,7 @@ public class SpinUp implements Action{
 
     @Override
     public void start() {
-        shooter.spinToRPM(speed);
+        shooter.setHoodPosition(position);
     }
 
     @Override

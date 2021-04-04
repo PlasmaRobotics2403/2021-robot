@@ -89,7 +89,7 @@ public class Shoot implements Action{
         shooter.spinToRPM(rpm);
         shooter.autoHood(vision_Y, 1);
         
-        if(shooter.getLeftShooterRPM() > rpm){
+        if(shooter.getLeftShooterRPM() > rpm - 500){
             startShooting = true;
         }
         
@@ -116,7 +116,7 @@ public class Shoot implements Action{
     }
 
     public void end() {
-        shooter.hoodHidden();
+        //shooter.hoodHidden();
         shooter.stop();
         shooter.feedBalls(0);
         intake.intakeBall(0);
