@@ -54,6 +54,9 @@ public class Drive extends SubsystemBase {
     private double gyroAngle;
     private double gyroPitch;
 
+    public SpeedControllerGroup leftSide;
+    public SpeedControllerGroup rightSide;
+
     public DifferentialDrive diffDrive;
     public DifferentialDriveOdometry odometry;
     public DifferentialDriveKinematics kinematics;
@@ -134,7 +137,10 @@ public class Drive extends SubsystemBase {
       leftDriveSlave.configClosedloopRamp(0);
       rightDriveSlave.configClosedloopRamp(0);
       
-      diffDrive = new DifferentialDrive(leftDrive, rightDrive);
+      leftSide = new SpeedControllerGroup(leftDrive, leftDriveSlave);
+      rightSide = new SpeedControllerGroup(rightDrive, rightDriveSlave);
+
+      diffDrive = new DifferentialDrive(leftSide, rightSide);
       kinematics = new DifferentialDriveKinematics(Constants.WHEEL_BASE);
       odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
       feedForward = new SimpleMotorFeedforward(.24, 1.83, .36);

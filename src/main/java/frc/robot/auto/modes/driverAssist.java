@@ -54,9 +54,9 @@ public class driverAssist extends AutoMode {
         DriverStation.reportWarning("started Action", false);
 		
 		runAction(new Tracking(turret, false, 180));
-		runActionsParallel(new Tracking(turret, true, 180), new SpinUp(shooter, 13000));
+		runActionsParallel(new Tracking(turret, true, 180), new SpinUp(shooter, 14000));
         runAction(new followTrajectory(23, driveTrain, intake));
-		runAction(new Shoot(turret, shooter, intake, table, 2.0, 13000));
+		runAction(new Shoot(turret, shooter, intake, table, 1.5, 14000));
 		runAction(new followTrajectory(22, driveTrain, intake));
 		
 

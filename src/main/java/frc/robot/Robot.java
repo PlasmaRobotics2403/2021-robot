@@ -349,6 +349,56 @@ public class Robot extends TimedRobot {
     //compressor.start();
   }
 
+  public void testControls(final PlasmaJoystick joystick) {
+    driveTrain.FPSDrive(joystick.LeftY, joystick.RightX);
+
+    if(joystick.RB.isPressed()){
+      intake.roller(Constants.MAX_ROLLER_SPEED);
+      if(intake.getFrontIndexSensorState() == false) {
+        if(intake.getBackIndexSensorState() == true){
+          intake.advanceBall();
+        }
+        if(ballCounted == false && ballCounter < 5){
+          ballCounter ++;
+          ballCounted = true;
+        }
+      }
+      else {
+        ballCounted = false;
+      }
+    }
+    else {
+      intake.intakeBall(0);
+      intake.indexBall(0);
+      shooter.feedBalls(0);
+      intake.resetAdvanceBall();
+    }
+
+    if(joystick.R3.isPressed()) {
+      intake.extendForeBar();
+      intake.roller(Constants.MAX_ROLLER_SPEED);
+    }
+
+    if(joystick.L3.isPressed()) {
+      intake.retractForeBar();
+      intake.roller(0);
+      //climb.engageLatch();
+    }
+
+    if(intake.getFrontIndexSensorState() == false) {
+      if(intake.getBackIndexSensorState() == true){
+        intake.advanceBall();
+      }
+      if(ballCounted == false && ballCounter < 5){
+        ballCounter ++;
+        ballCounted = true;
+      }
+    }
+    else {
+      ballCounted = false;
+    }
+  }
+
   public void driverControls(final PlasmaJoystick joystick) {
     driveTrain.FPSDrive(joystick.LeftY, joystick.RightX);
     //driveTrain.driveRobot(joystick.LeftY.getFilteredAxis(), joystick.RightX.getFilteredAxis());
@@ -516,7 +566,7 @@ public class Robot extends TimedRobot {
 
   public void visionTargetPosition() {
     if (vision_Area != 0) {
-      turretTargetAngle = vision_X + turret.getTurretAngle()/1.03 + driveTrain.getGyroAngle();
+      turretTargetAngle = vision_X + turret.getTurretAngle()/1.03 + driveTrain.getGyroAngle() + Constants.VISION_X_OFFSET;
     }
   }
 

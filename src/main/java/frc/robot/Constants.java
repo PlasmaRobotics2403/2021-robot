@@ -57,8 +57,8 @@ public class Constants {
 	public static final double ANGLE_ERROR_PERCENT = 0.04;
 
 	/* INTAKE CONSTANTS */
-	public static final double MAX_INDEX_SPEED = 0.25;
-	public static final double MAX_INTAKE_SPEED = 0.25;
+	public static final double MAX_INDEX_SPEED = 0.40;
+	public static final double MAX_INTAKE_SPEED = 0.40;
 	public static final double MAX_ROLLER_SPEED = 0.75;
 
 	/* TURRET CONSTANTS */
@@ -89,6 +89,7 @@ public class Constants {
 	public static final double OUTERPORT_HEIGHT = 98; // inches
 	public static final double x2_ZOOM_Y_CONVERION = 1.077;
 	public static final double LIMELIGHT_PAN = 6.468;
+	public static final double VISION_X_OFFSET = -1.5;
 
 	/* TALON CONFIG CONSTANTS */
 	public static final int TALON_TIMEOUT = 30;

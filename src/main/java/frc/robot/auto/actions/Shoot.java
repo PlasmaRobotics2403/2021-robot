@@ -89,12 +89,12 @@ public class Shoot implements Action{
         shooter.spinToRPM(rpm);
         shooter.autoHood(vision_Y, 1);
         
-        if(shooter.getLeftShooterRPM() > rpm - 500){
+        if(shooter.getLeftShooterRPM() > rpm - 1000){
             startShooting = true;
         }
         
-        try {
-            if(startShooting == true && shooter.getHoodPosition() >= shooter.getTargetHoodPosition() * 0.95 && turret.getTurretPositionError() > -100 && turret.getTurretPositionError() < 100) {
+        try {                                                                                       // 0.95                                      -100                                      100
+            if(startShooting == true && shooter.getHoodPosition() >= shooter.getTargetHoodPosition() * 0.90 && turret.getTurretPositionError() > -150 && turret.getTurretPositionError() < 150) {
                 if(timeCollected == false){
                     startTime = Timer.getFPGATimestamp();
                     timeCollected = true;
@@ -117,7 +117,7 @@ public class Shoot implements Action{
 
     public void end() {
         //shooter.hoodHidden();
-        shooter.stop();
+        //shooter.stop();
         shooter.feedBalls(0);
         intake.intakeBall(0);
         intake.indexBall(0);
