@@ -331,10 +331,10 @@ public class followTrajectory implements Action {
             slalomConfig0
 		);
 
-		bounceConfig0 = new TrajectoryConfig(10, 1.75) //2.5, 1.5
+		bounceConfig0 = new TrajectoryConfig(10, 4.25) //2.5, 1.75
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
-								.addConstraint(new CentripetalAccelerationConstraint(4.3));
+								.addConstraint(new CentripetalAccelerationConstraint(3));
 		bounce0 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
@@ -345,7 +345,7 @@ public class followTrajectory implements Action {
             bounceConfig0
 		);
 
-		bounceConfig1 = new TrajectoryConfig(10, 1.25) //2.25, 1.25
+		bounceConfig1 = new TrajectoryConfig(10, 3.25) //2.25, 1.25
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
 								.setReversed(true)
@@ -353,7 +353,8 @@ public class followTrajectory implements Action {
 		bounce1 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
-				new Pose2d(-1.5, -0.6, new Rotation2d(Math.toRadians(30))),
+				new Pose2d(-0.4, 0.0, new Rotation2d(Math.toRadians(0))),
+				new Pose2d(-1.5, -0.6, new Rotation2d(Math.toRadians(0))),
 				new Pose2d(-2.7, -1.0, new Rotation2d(Math.toRadians(90))), //-1.4
 				new Pose2d(-1.5, -2.3, new Rotation2d(Math.toRadians(180))),
 				new Pose2d(0.0, -2.3, new Rotation2d(Math.toRadians(180))) //0.1
@@ -363,39 +364,39 @@ public class followTrajectory implements Action {
             bounceConfig1
 		);
 
-		bounceConfig2 = new TrajectoryConfig(10, 1.5) //2.25, 1.25
+		bounceConfig2 = new TrajectoryConfig(10, 3.75) //2.25, 1.25
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
-								.addConstraint(new CentripetalAccelerationConstraint(4.3));
+								.addConstraint(new CentripetalAccelerationConstraint(3));
 		bounce2 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
 				new Pose2d(1.8, 0, new Rotation2d(Math.toRadians(0))),
-				new Pose2d(2.6, 1, new Rotation2d(Math.toRadians(90))), //2.5
-				new Pose2d(1.9, 2.3, new Rotation2d(Math.toRadians(180))), //1.8
-				new Pose2d(-0.1, 2.5, new Rotation2d(Math.toRadians(180))) //-0.2, 2.3
+				new Pose2d(2.8, 1, new Rotation2d(Math.toRadians(90))), //2.6
+				new Pose2d(1.9, 2.4, new Rotation2d(Math.toRadians(180))), //1.8
+				new Pose2d(-0.1, 2.7, new Rotation2d(Math.toRadians(180))) //-0.2, 2.3
 				
             ),
             // Pass config
             bounceConfig2
 		);
 
-		bounceConfig3 = new TrajectoryConfig(10, 1.75) //2.5, 1.5
+		bounceConfig3 = new TrajectoryConfig(10, 6) //2.5, 1.75
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
 								.setReversed(true)
-								.addConstraint(new CentripetalAccelerationConstraint(4.3));
+								.addConstraint(new CentripetalAccelerationConstraint(3));
 		bounce3 = TrajectoryGenerator.generateTrajectory(
 			List.of(
 				new Pose2d(0, 0, new Rotation2d(0)),
-				new Pose2d(-1, -1.9, new Rotation2d(Math.toRadians(90)))
+				new Pose2d(-2.0, -0.8, new Rotation2d(Math.toRadians(20)))
 				
             ),
             // Pass config
             bounceConfig3
 		);
 
-		barrelConfig = new TrajectoryConfig(10.0, 2.6) // -- loves coast mode
+		barrelConfig = new TrajectoryConfig(10.0, 3.0) // -- loves coast mode 2.6
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
 								.addConstraint(new CentripetalAccelerationConstraint(4.3));
@@ -414,7 +415,8 @@ public class followTrajectory implements Action {
 				new Pose2d(6.7, -1.5, new Rotation2d(Math.toRadians(0))), 
 				new Pose2d(7.4, -0.7, new Rotation2d(Math.toRadians(90))),
 				new Pose2d(6.7, 0.4, new Rotation2d(Math.toRadians(180))),
-				new Pose2d(0, 0.7, new Rotation2d(Math.toRadians(180)))
+				new Pose2d(5.2, 0.55, new Rotation2d(Math.toRadians(180))),
+				new Pose2d(0, 0.6, new Rotation2d(Math.toRadians(180)))
             ),
             // Pass config
             barrelConfig
