@@ -528,7 +528,12 @@ public class Robot extends TimedRobot {
       }
       else{
 
-        turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle());
+        if(turret.getTurretAngle() < 180.0){
+          turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle() + (Math.abs( (5.0/180.0) * (turret.getTurretAngle()) )) );
+        }
+        else{
+          turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle() + (5.0 - ((5.0/180.0) * Math.abs(180.0 - turret.getTurretAngle()))) );
+        }
       }
     }
     else{
