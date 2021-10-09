@@ -21,6 +21,8 @@ public class Turret {
     boolean isCalibrated;
     boolean isTracking;
 
+    double targetAngle;
+
     public Turret (int TURRET_ROTATION_MOTOR_ID, int MIN_LIMIT_SWITCH_ID, int MAX_LIMIT_SWITCH_ID){
 
         turretRotationMotor = new TalonSRX(TURRET_ROTATION_MOTOR_ID);
@@ -29,6 +31,8 @@ public class Turret {
 
         isCalibrated = false;
         isTracking = true;
+
+        targetAngle = 270.0;
 
         limitCurrent(turretRotationMotor);
         turretRotationMotor.setInverted(false);
@@ -123,6 +127,14 @@ public class Turret {
     public double getTurretAngle(){
         double position = turretRotationMotor.getSelectedSensorPosition();
         return position * 360 / Constants.ENCODER_TICKS_PER_ROTATION;
+    }
+
+    public void setTargetAngle(double angle) {
+        targetAngle = angle;
+    }
+
+    public double getTargetAngle() {
+        return targetAngle;
     }
 
     public void setTurretPosition(double angle){

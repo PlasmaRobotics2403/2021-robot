@@ -70,7 +70,15 @@ public class Intake {
 
     public void advanceBall(){
         advanceCount ++; 
-        indexMotor.set(ControlMode.Position, 25000*advanceCount); //originally 16000
+        indexMotor.set(ControlMode.Position, 16000*advanceCount); //originally 16000 //25000
+        SmartDashboard.putNumber("index position", indexMotor.getSelectedSensorPosition());
+        indexMotor2.set(ControlMode.Follower, indexMotor.getDeviceID());
+        
+    }
+
+    public void advanceFirstBall(){
+        advanceCount ++; 
+        indexMotor.set(ControlMode.Position, 12000*advanceCount);
         SmartDashboard.putNumber("index position", indexMotor.getSelectedSensorPosition());
         indexMotor2.set(ControlMode.Follower, indexMotor.getDeviceID());
         

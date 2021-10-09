@@ -5,6 +5,7 @@ import frc.robot.Constants;
 import frc.robot.Intake;
 import frc.robot.Turret;
 import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.Robot;
 
 public class Tracking implements Action{
     Turret turret;
@@ -26,6 +27,7 @@ public class Tracking implements Action{
     public void start() {
         turret.setIsTracking(tracking);
         if(tracking == false){
+            //turret.setTargetAngle(angle);
             turret.setTurretPosition(angle);
         }
     }

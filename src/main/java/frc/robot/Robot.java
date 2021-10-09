@@ -310,14 +310,21 @@ public class Robot extends TimedRobot {
       visionTargetPosition();
 
       if (!turret.getIsTracking() || vision_Area == 0) {
-        //turret.setTurretPosition(Constants.FORWARD_FACING);
+        //turretTargetAngle = turret.getTargetAngle();
+        DriverStation.reportError("updating turret Angle", false);
       }
       else {
         /*double turnVal = vision_X / 20;
         turnVal = Math.min(turnVal, 0.2);
         turnVal = Math.max(-0.2, turnVal);
         turret.turn(turnVal);*/
-        turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle() + turretOffSetAngle);
+        if(isAutonomousEnabled()) {
+          turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle() + turretOffSetAngle + 8);
+        }
+        else {
+          turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle() + turretOffSetAngle);
+        }
+       
       }
       
 
@@ -438,7 +445,12 @@ public class Robot extends TimedRobot {
       intake.roller(Constants.MAX_ROLLER_SPEED);
       if(intake.getFrontIndexSensorState() == false) {
         if(intake.getBackIndexSensorState() == true){
-          intake.advanceBall();
+          if(ballCounter == 0){
+            intake.advanceFirstBall();
+          }
+          else {
+            intake.advanceBall();
+          }
         }
         if(ballCounted == false && ballCounter < 5){
           ballCounter ++;

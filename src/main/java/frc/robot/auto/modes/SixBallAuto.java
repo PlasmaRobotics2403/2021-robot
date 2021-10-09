@@ -56,8 +56,8 @@ public class SixBallAuto extends AutoMode {
 		runAction(new followTrajectory(4, driveTrain, intake));
 		runAction(new IntakeRoller(intake, false));
 		runAction(new followTrajectory(5, driveTrain, intake));
-		
-		runAction(new Shoot(turret, shooter, intake, table, 2, 18000));
+
+		runAction(new Shoot(turret, shooter, intake, table, 2, 15000));
 		//
 		
 		DriverStation.reportWarning("Finished Action", false);
