@@ -54,9 +54,6 @@ public class Drive extends SubsystemBase {
     private double gyroAngle;
     private double gyroPitch;
 
-    public SpeedControllerGroup leftSide;
-    public SpeedControllerGroup rightSide;
-
     public DifferentialDrive diffDrive;
     public DifferentialDriveOdometry odometry;
     public DifferentialDriveKinematics kinematics;
@@ -136,11 +133,9 @@ public class Drive extends SubsystemBase {
       rightDrive.configClosedloopRamp(0);
       leftDriveSlave.configClosedloopRamp(0);
       rightDriveSlave.configClosedloopRamp(0);
-      
-      leftSide = new SpeedControllerGroup(leftDrive, leftDriveSlave);
-      rightSide = new SpeedControllerGroup(rightDrive, rightDriveSlave);
 
-      diffDrive = new DifferentialDrive(leftSide, rightSide);
+
+      diffDrive = new DifferentialDrive(leftDrive, rightDrive);
       kinematics = new DifferentialDriveKinematics(Constants.WHEEL_BASE);
       odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
       feedForward = new SimpleMotorFeedforward(.24, 1.83, .36);
@@ -277,8 +272,8 @@ public class Drive extends SubsystemBase {
     }
 
     public void currentLimit(final TalonFX talon) {
-      //talon.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 30,0));
-      talon.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 50, 51,0));
+      talon.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 30, 30,0));
+      //talon.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(true, 50, 51,0));
     }
     
     public void leftWheelDrive(final double speed) {
@@ -375,6 +370,7 @@ public class Drive extends SubsystemBase {
   }
 
   public void driveRobot(double forwardVal, double turnVal) {
+    
     diffDrive.arcadeDrive(forwardVal, turnVal);
   }
 
