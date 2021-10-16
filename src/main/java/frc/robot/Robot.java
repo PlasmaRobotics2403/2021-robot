@@ -57,6 +57,9 @@ public class Robot extends TimedRobot {
   AutoMode[] autoModes;
   int autoModeSelection;
 
+  double[] turretOffSetArray = new double[] { 0, 0, 8, 6, 0, 0, 0, 0 };
+  double turretOffSet;
+
   NetworkTable table;
   NetworkTableEntry tx;
   NetworkTableEntry ty;
@@ -86,6 +89,8 @@ public class Robot extends TimedRobot {
   int climbIterator;
   int climbPosition;
   boolean climbRecorded;
+
+
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -150,6 +155,8 @@ public class Robot extends TimedRobot {
     for(int i = 0; i < 10; i++){
       autoModes[i] = new Nothing();
     }
+
+    turretOffSet = 0;
 
     autoModeSelection = 0;
     setDriveToCoast = false;
@@ -291,6 +298,8 @@ public class Robot extends TimedRobot {
     table.getEntry("ledMode").setNumber(3);
     //turret.setTurretPosition(Constants.BACK_FACING);
 
+    turretOffSet = turretOffSetArray[autoModeSelection + 1];
+
     autoModeRunner.chooseAutoMode(autoModes[autoModeSelection]);
     autoModeRunner.start();
   }
@@ -319,7 +328,7 @@ public class Robot extends TimedRobot {
         turnVal = Math.max(-0.2, turnVal);
         turret.turn(turnVal);*/
         if(isAutonomousEnabled()) {
-          turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle() + turretOffSetAngle + 8);
+          turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle() + turretOffSetAngle + turretOffSet);
         }
         else {
           turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle() + turretOffSetAngle);

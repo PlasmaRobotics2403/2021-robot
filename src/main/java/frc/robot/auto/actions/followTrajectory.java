@@ -234,7 +234,7 @@ public class followTrajectory implements Action {
                 new Translation2d(1, 1.2) //1.3, 1.8
             ),
             // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(2.5, 1.7, new Rotation2d(Math.toRadians(20))),
+            new Pose2d(2.5, 2.2, new Rotation2d(Math.toRadians(20))),
             // Pass config
             config7
 		);
