@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.robot.auto.modes.Basic;
 import frc.robot.auto.modes.Bounce;
 import frc.robot.auto.modes.GalaxySearch;
 import frc.robot.auto.modes.MoveFromLine;
@@ -57,7 +58,9 @@ public class Robot extends TimedRobot {
   AutoMode[] autoModes;
   int autoModeSelection;
 
-  double[] turretOffSetArray = new double[] { 0, 0, 8, 6, 0, 0, 0, 0 };
+  double turretAngle;
+
+  double[] turretOffSetArray = new double[] { 0, 0, 8, 0, 0, 8, 0, 0 };
   double turretOffSet;
 
   NetworkTable table;
@@ -159,6 +162,8 @@ public class Robot extends TimedRobot {
     turretOffSet = 0;
 
     autoModeSelection = 0;
+
+    turretAngle = 180;
     setDriveToCoast = false;
 
     climbIterator = 0;
@@ -205,6 +210,9 @@ public class Robot extends TimedRobot {
 
     autoModeSelection = (int) SmartDashboard.getNumber("Auton Mode", 0.0);
     SmartDashboard.putNumber("Auton Mode", autoModeSelection);
+
+    turretAngle = (double) SmartDashboard.getNumber("Auton 6 Angle", 180.0);
+    SmartDashboard.putNumber("Auton 6 Angle", turretAngle);
 
     setDriveToCoast = SmartDashboard.getBoolean("Set Drive to Coast", false);
     SmartDashboard.putBoolean("Set Drive to Coast", setDriveToCoast);
@@ -290,15 +298,19 @@ public class Robot extends TimedRobot {
     autoModes[3] = new SixBallAuto(driveTrain, turret, shooter, intake, table);
     autoModes[4] = new ScaleAuton(driveTrain, turret, shooter, intake, table);
     autoModes[5] = new TenBallAuto(driveTrain, turret, shooter, intake, table);
-    autoModes[6] = new slalom(driveTrain, turret, shooter, intake, table);
-    autoModes[7] = new Bounce(driveTrain, turret, shooter, intake, table);
-    autoModes[8] = new barrel(driveTrain, intake, turret);
-    autoModes[9] = new GalaxySearch(driveTrain, intake, table, turret);
+    //autoModes[6] = new slalom(driveTrain, turret, shooter, intake, table);
+    //autoModes[7] = new Bounce(driveTrain, turret, shooter, intake, table);
+    //autoModes[8] = new barrel(driveTrain, intake, turret);
+    //autoModes[9] = new GalaxySearch(driveTrain, intake, table, turret);
+    autoModes[6] = new Basic(driveTrain, turret, shooter, intake, table);
 
     table.getEntry("ledMode").setNumber(3);
     //turret.setTurretPosition(Constants.BACK_FACING);
 
     turretOffSet = turretOffSetArray[autoModeSelection + 1];
+    if(autoModeSelection == 6) {
+      turretOffSet += (turretAngle - 180) / 30;
+    }
 
     autoModeRunner.chooseAutoMode(autoModes[autoModeSelection]);
     autoModeRunner.start();
@@ -328,7 +340,7 @@ public class Robot extends TimedRobot {
         turnVal = Math.max(-0.2, turnVal);
         turret.turn(turnVal);*/
         if(isAutonomousEnabled()) {
-          turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle() + turretOffSetAngle + turretOffSet);
+          turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle() + turretOffSetAngle + turretOffSet + turret.getTurretOffSet());
         }
         else {
           turret.setTurretPosition(turretTargetAngle - driveTrain.getGyroAngle() + turretOffSetAngle);
@@ -531,6 +543,15 @@ public class Robot extends TimedRobot {
   }
 
   public void visionControls(final PlasmaJoystick joystick, final PlasmaJoystick joystick2) {
+
+    /*if(joystick2.dPad.getPOV() == 180 && climb.getLeftEncoderValue() > 0){
+      climb.spoolCable(-0.2);
+    }
+    else {
+      climb.spoolCable(0);
+    }*/
+
+
     if(joystick.BACK.isPressed()){
       turret.calibrate();
     }

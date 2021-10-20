@@ -22,6 +22,7 @@ public class Turret {
     boolean isTracking;
 
     double targetAngle;
+    double turretOffSet;
 
     public Turret (int TURRET_ROTATION_MOTOR_ID, int MIN_LIMIT_SWITCH_ID, int MAX_LIMIT_SWITCH_ID){
 
@@ -49,6 +50,8 @@ public class Turret {
 
         minLimit = new DigitalInput(MIN_LIMIT_SWITCH_ID);
         maxLimit = new DigitalInput(MAX_LIMIT_SWITCH_ID);
+
+        turretOffSet = 0;
 
     }
 
@@ -135,6 +138,14 @@ public class Turret {
 
     public double getTargetAngle() {
         return targetAngle;
+    }
+
+    public void setTurretOffSet(double angle) {
+        turretOffSet = angle;
+    }
+
+    public double getTurretOffSet() {
+        return turretOffSet;
     }
 
     public void setTurretPosition(double angle){

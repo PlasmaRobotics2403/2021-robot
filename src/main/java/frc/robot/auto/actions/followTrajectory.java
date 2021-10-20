@@ -50,6 +50,7 @@ public class followTrajectory implements Action {
 	Trajectory trajectory9;
 	Trajectory trajectory10;
 	Trajectory trajectory11;
+	Trajectory trajectory12;
 	TrajectoryConfig config0;
 	TrajectoryConfig config1;
 	TrajectoryConfig config2;
@@ -62,6 +63,7 @@ public class followTrajectory implements Action {
 	TrajectoryConfig config9;
 	TrajectoryConfig config10;
 	TrajectoryConfig config11;
+	TrajectoryConfig config12;
 
 	Trajectory slalom0;
 	TrajectoryConfig slalomConfig0;
@@ -306,6 +308,22 @@ public class followTrajectory implements Action {
             config11
 		);
 
+		config12 = new TrajectoryConfig(1.5, 1.5)
+								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
+		trajectory12 = TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)),
+            // Pass through these two interior waypoints, making an 's' curve path
+            List.of(
+                new Translation2d(0.5, 0)
+            ),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(1, 0, new Rotation2d(0)),
+            // Pass config
+            config12
+		);
+
 		slalomConfig0 = new TrajectoryConfig(7.0, 0.8)// (3.5, 0.75) good values --try in coast mode
 								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
 								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11))
@@ -538,6 +556,7 @@ public class followTrajectory implements Action {
 		trajectoryArray[21] = galaxySearch4;
 		trajectoryArray[22] = teleop1;
 		trajectoryArray[23] = teleop2;
+		trajectoryArray[24] = trajectory12;
 		DriverStation.reportWarning("got Trajectory", false);
 	}
 

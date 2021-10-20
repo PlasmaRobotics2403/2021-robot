@@ -1,6 +1,7 @@
 package frc.robot.auto.modes;
 
 import frc.robot.auto.actions.IntakeRoller;
+import frc.robot.auto.actions.SetTurretOffSet;
 import frc.robot.auto.actions.SetTurretPosition;
 import frc.robot.auto.actions.Shoot;
 import frc.robot.auto.actions.SpinUp;
@@ -49,6 +50,7 @@ public class ScaleAuton extends AutoMode {
 	@Override
 	protected void routine() throws AutoModeEndedException {
 		DriverStation.reportWarning("started Action", false);
+		runAction(new SetTurretOffSet(turret, 8));
 		runAction(new Tracking(turret, false, 160));
 		runAction(new Tracking(turret, true, 180));
 		runAction(new Shoot(turret, shooter, intake, table, 0.9, 15000));
@@ -62,7 +64,9 @@ public class ScaleAuton extends AutoMode {
 		runAction(new IntakeRoller(intake, true));
 		runAction(new SpinUp(shooter, 18000));
 		runAction(new followTrajectory(7, driveTrain, intake));
+		
 		runAction(new IntakeRoller(intake, false));
+		runAction(new SetTurretOffSet(turret, 4));
 		runAction(new Tracking(turret, true, 0));
 		runAction(new Shoot(turret, shooter, intake, table, 4, 18000));
 		
