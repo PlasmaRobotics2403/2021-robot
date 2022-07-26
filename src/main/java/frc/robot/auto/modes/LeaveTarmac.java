@@ -1,19 +1,11 @@
 package frc.robot.auto.modes;
 
-import frc.robot.auto.actions.IntakeRoller;
-import frc.robot.auto.actions.SetTurretPosition;
-import frc.robot.auto.actions.Shoot;
-import frc.robot.auto.actions.SpinUp;
-import frc.robot.auto.actions.Straight;
 import frc.robot.auto.actions.Tracking;
-import frc.robot.auto.actions.extendIntake;
 import frc.robot.auto.actions.followTrajectory;
-import frc.robot.auto.actions.gyroAngle;
 import frc.robot.auto.util.AutoMode;
 import frc.robot.auto.util.AutoModeEndedException;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.DriverStation;
-import frc.robot.Constants;
 
 //import edu.wpi.first.wpilibj.DriverStation;
 
@@ -27,15 +19,15 @@ import frc.robot.Turret;
 /**
  *
  */
-public class barrel extends AutoMode {
+public class LeaveTarmac extends AutoMode {
 	Drive driveTrain;
-	Intake intake;
 	Turret turret;
+	Shooter shooter;
+	Intake intake;
+	NetworkTable table;
 
-    public barrel(Drive driveTrain, Intake intake, Turret turret) {
-		this.driveTrain = driveTrain;
-		this.intake = intake;
-		this.turret = turret;
+    public LeaveTarmac(Drive drivetrain) {
+		this.driveTrain = drivetrain;
     }
 	/*
 	 * (non-Javadoc)
@@ -45,8 +37,11 @@ public class barrel extends AutoMode {
 	@Override
 	protected void routine() throws AutoModeEndedException {
 		DriverStation.reportWarning("started Action", false);
-		runAction(new Tracking(turret, false, 80));
-        runAction(new followTrajectory(17, driveTrain, intake));
+		
+		runAction(new Tracking(turret, false, 160));
+		runAction(new followTrajectory(25, driveTrain, intake));
+
+		
 		DriverStation.reportWarning("Finished Action", false);
 	}
 

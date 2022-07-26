@@ -49,10 +49,10 @@ public class Basic extends AutoMode {
 	protected void routine() throws AutoModeEndedException {
 		DriverStation.reportWarning("started Action", false);
 		//runAction(new SetTurretPosition(Constants.BACK_FACING, turret));
-		runAction(new Tracking(turret, false, 160));
-		runAction(new Tracking(turret, true, 180));
-        runAction(new SpinUp(shooter, 16000));
-        runAction(new Shoot(turret, shooter, intake, table, 0.9, 15000));
+		//runAction(new Tracking(turret, false, 160));
+		//runAction(new Tracking(turret, true, 180));
+        //runAction(new SpinUp(shooter, 16000));
+        //runAction(new Shoot(turret, shooter, intake, table, 0.9, 15000));
         runAction(new followTrajectory(24, driveTrain, intake));
 
         runAction(new SpinUp(shooter, 0));
