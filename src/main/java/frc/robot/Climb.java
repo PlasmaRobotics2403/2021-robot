@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 
 public class Climb {
@@ -17,7 +18,7 @@ public class Climb {
         leftClimbMotor = new TalonSRX(left_climb_motor_ID);
         rightClimbMotor = new VictorSPX(right_climb_motor_ID);
 
-        climbLatch = new Solenoid(climb_latch_ID);
+        climbLatch = new Solenoid(Constants.PNUMATICID, PneumaticsModuleType.CTREPCM, climb_latch_ID);
 
         leftClimbMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         leftClimbMotor.setSelectedSensorPosition(0, 0, 0);

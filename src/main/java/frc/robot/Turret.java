@@ -158,7 +158,7 @@ public class Turret {
         return turretRotationMotor.getSelectedSensorPosition();
     }
 
-    public int getTurretPositionError() {
+    public double getTurretPositionError() {
         return turretRotationMotor.getClosedLoopError();
     }
 

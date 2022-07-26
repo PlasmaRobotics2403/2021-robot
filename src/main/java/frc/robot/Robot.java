@@ -10,10 +10,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PneumaticsControlModule;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.modes.Basic;
 import frc.robot.auto.modes.Bounce;
 import frc.robot.auto.modes.GalaxySearch;
+import frc.robot.auto.modes.LeaveTarmac;
 import frc.robot.auto.modes.MoveFromLine;
 import frc.robot.auto.modes.Nothing;
 import frc.robot.auto.modes.ScaleAuton;
@@ -130,7 +133,7 @@ public class Robot extends TimedRobot {
 
     controlPanel = new ControlPanel(Constants.SPIN_CONTROL_PANEL_MOTOR_ID);
 
-    compressor = new Compressor();
+    compressor = new Compressor(PneumaticsModuleType.CTREPCM);
 
     generateTraj = new GenerateTrajectory();
 
@@ -303,6 +306,8 @@ public class Robot extends TimedRobot {
     //autoModes[8] = new barrel(driveTrain, intake, turret);
     //autoModes[9] = new GalaxySearch(driveTrain, intake, table, turret);
     autoModes[6] = new Basic(driveTrain, turret, shooter, intake, table);
+
+    autoModes[7] = new LeaveTarmac(driveTrain);
 
     table.getEntry("ledMode").setNumber(3);
     //turret.setTurretPosition(Constants.BACK_FACING);

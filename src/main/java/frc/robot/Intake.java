@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -46,7 +47,7 @@ public class Intake {
         frontIndexSensor = new DigitalInput(front_index_sensor_ID);
         backIndexSensor = new DigitalInput(back_index_sensor_ID);
 
-        foreBarPiston = new Solenoid(intake_solenoid_ID);
+        foreBarPiston = new Solenoid(Constants.PNUMATICID, PneumaticsModuleType.CTREPCM, intake_solenoid_ID);
 
         limitCurrent(indexMotor2);
         limitCurrent(indexMotor);
