@@ -7,23 +7,23 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.controller.RamseteController;
-import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.geometry.Twist2d;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Twist2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.spline.PoseWithCurvature;
-import edu.wpi.first.wpilibj.trajectory.Trajectory;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj.trajectory.constraint.CentripetalAccelerationConstraint;
-import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveKinematicsConstraint;
-import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
-import edu.wpi.first.wpilibj.util.Units;
+import edu.wpi.first.math.spline.PoseWithCurvature;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.trajectory.constraint.CentripetalAccelerationConstraint;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveKinematicsConstraint;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants;
 import frc.robot.Drive;
@@ -93,6 +93,9 @@ public class followTrajectory implements Action {
 	Trajectory teleop2;
 	TrajectoryConfig teleopConfig1;
 	TrajectoryConfig teleopConfig2;
+
+	Trajectory rapidReact;
+	TrajectoryConfig rapidReactConfig;
 
 	Trajectory[] trajectoryArray;
 	int trajectoryNumber;
@@ -316,10 +319,10 @@ public class followTrajectory implements Action {
             new Pose2d(0, 0, new Rotation2d(0)),
             // Pass through these two interior waypoints, making an 's' curve path
             List.of(
-                new Translation2d(0.5, 0)
+                new Translation2d(0.7, 0)
             ),
             // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(1, 0, new Rotation2d(0)),
+            new Pose2d(1.4, 0, new Rotation2d(0)),
             // Pass config
             config12
 		);
@@ -530,8 +533,21 @@ public class followTrajectory implements Action {
             // Pass config
             teleopConfig2
 		);
+
+
+		rapidReactConfig = new TrajectoryConfig(1.5, 1.5)
+								.setKinematics(new DifferentialDriveKinematics(Constants.WHEEL_BASE))
+								.addConstraint(new DifferentialDriveVoltageConstraint(new SimpleMotorFeedforward(.277, 1.78, .275), new DifferentialDriveKinematics(Constants.WHEEL_BASE), 11));
+		rapidReact = TrajectoryGenerator.generateTrajectory(
+			List.of(
+				new Pose2d(0, 0, new Rotation2d(0)),
+				new Pose2d(1.2, 0, new Rotation2d(Math.toRadians(0)))
+            ),
+            // Pass config
+            teleopConfig2
+		);
 		
-		trajectoryArray = new Trajectory[25];
+		trajectoryArray = new Trajectory[26];
 		trajectoryArray[0] = trajectory0;
 		trajectoryArray[1] = trajectory1;
 		trajectoryArray[2] = trajectory2;
@@ -557,6 +573,7 @@ public class followTrajectory implements Action {
 		trajectoryArray[22] = teleop1;
 		trajectoryArray[23] = teleop2;
 		trajectoryArray[24] = trajectory12;
+		trajectoryArray[25] = rapidReact;
 		DriverStation.reportWarning("got Trajectory", false);
 	}
 
